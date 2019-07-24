@@ -10,6 +10,6 @@
     <img alt="npm type definitions" src="https://img.shields.io/badge/node-%3E%3D6.0-green.svg?style=flat-square">
   </a>
   <a>
-    <img alt="code in typescript" src="https://badges.frapsoft.com/typescript/code/typescript.svg?v=101?style=flat-square">
+    <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
   </a>
 </div>
