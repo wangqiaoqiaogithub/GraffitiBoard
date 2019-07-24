@@ -7,6 +7,6 @@
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/wangqiaoqiaogithub/GraffitiBoard.svg?style=flat-square">
   </a>
   <a>
-    <img alt="npm type definitions" src="https://img.shields.io/npm/types/GraffitiBoard.svg?style=flat-square">
+    <img alt="npm type definitions" src="https://img.shields.io/badge/node-%3E%3D6.0-green.svg?style=flat-square">
   </a>
 </div>
