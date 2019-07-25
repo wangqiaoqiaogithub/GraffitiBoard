@@ -1,6 +1,6 @@
 ﻿<div align="center">
   <p align="center">
-    <img width="200" height="200" src="GBlogo.jpg">
+    <img width="150" height="150" src="GBlogo.jpg">
   </p>
   <h2 align="center">GraffitiBoard</h2>
   <p align="center">:art: 这是一个涂鸦画板工具（基于typescript+Html5）</p>
