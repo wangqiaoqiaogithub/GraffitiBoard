@@ -14,11 +14,13 @@
   </a>
   <a>
     <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
-  </a>
+  </a>  
 </div>
-<br/>
 <div>
-  <p font-size="20px" align="center">
+  <h3 align="left">
+    Explain
+  </h3>
+  <p font-size="20px" align="left">
     This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
   </p>
 </div>
