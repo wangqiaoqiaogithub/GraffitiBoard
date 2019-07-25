@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 const pkg = require('./package.json')
 
-const libraryName = 'GBoard'
+const libraryName = 'index'
 
 export default {
   input: `src/${libraryName}.ts`,
