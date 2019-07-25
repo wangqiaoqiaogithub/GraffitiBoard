@@ -17,7 +17,7 @@
   </a>
 </div>
 <div>
-  <h5 align="center">
+  <p font-size="20px" align="center">
     This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
-  </h5>
+  </p>
 </div>
