@@ -15,8 +15,8 @@
   <a>
     <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
   </a>
-  <br/>
 </div>
+<br/>
 <div>
   <p font-size="20px" align="center">
     This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
