@@ -17,7 +17,7 @@
   </a>
 </div>
 <div>
-  <p align="center">
+  <h3 align="center">
     This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
-  </p>
+  </h3>
 </div>
