@@ -15,6 +15,7 @@
   <a>
     <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
   </a>
+  <br/>
 </div>
 <div>
   <p font-size="20px" align="center">
