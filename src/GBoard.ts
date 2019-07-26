@@ -2,9 +2,6 @@
 // import "core-js/fn/array.find"
 // ...
 import { utilbase } from './base'
-interface GBoardapi {
-  name: string
-}
-export default class GBoard {
-  constructor() {}
-}
+import { GBoardapi } from './types'
+export function GBoard(config: GBoardapi) {}
+export default GBoard
