@@ -1,3 +1,3 @@
 interface GBoardapi {
-  name: string
+  GBname: string
 }

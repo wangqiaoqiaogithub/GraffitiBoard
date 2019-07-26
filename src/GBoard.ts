@@ -3,5 +3,5 @@
 // ...
 import { utilbase } from './base'
 import { GBoardapi } from './types'
-export function GBoard(config: GBoardapi) {}
+function GBoard(config: GBoardapi): void {}
 export default GBoard
