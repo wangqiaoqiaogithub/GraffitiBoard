@@ -1,4 +1,4 @@
-import DummyClass from '../src/GBoard'
+import DummyClass from '../src/GraffitiBoard'
 
 /**
  * Dummy test

@@ -3,5 +3,8 @@
 // ...
 import { utilbase } from './base'
 import { GBoardapi } from './types'
-function GBoard(config: GBoardapi): void {}
+function GBoard(config: GBoardapi): any {
+  var utilbasename = new utilbase.util()
+  config.GBname = utilbasename.typeof(config.GBname)
+}
 export default GBoard
