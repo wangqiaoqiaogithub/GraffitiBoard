@@ -1,7 +1,6 @@
 namespace utilbase {
-  export default class util {
-    constructor() {}
-    typeof(element: string) {
+  export class util {
+    public typeof(element: any) {
       return typeof element === 'string' ? document.querySelector(element) : element
     }
   }
