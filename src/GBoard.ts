@@ -7,11 +7,12 @@ import { GBoardapi } from './types'
 //   var utilbasename = new utilbase.util()
 //   config.GBname = utilbasename.typeof(config.GBname)
 // }
-export class GBoard {
-  name = GBoardapi.name
+export class GBoard extends GBoardapi {
+  constructor(name: any) {
+    this.name = GBoardapi.name
+  }
   public utilbasename = new utilbase.util()
-  public canvas = utilbasename.typeof(name)
-  constructor() {}
+  public canvas = utilbasename.typeof(this.name)
   listentoUser(config: GBoardapi): any {
     let using: boolean = false
     var lastPoint: any = {
