@@ -28,14 +28,14 @@ namespace utilbase {
     /**
      *通过util类封装设置自定义属性
      */
-    public addAttr(element: any, className: string) {
-      return element.setAttribute('', className)
+    public addAttr(element: any, nature: string, className: string) {
+      return element.setAttribute(nature, className)
     }
     /**
      *通过util类删除自定义属性
      */
-    public removeAttr(element, className: string) {
-      return element.removeAttribute('', className)
+    public removeAttr(element, nature: string, className: string) {
+      return element.removeAttribute(nature, className)
     }
   }
 }
