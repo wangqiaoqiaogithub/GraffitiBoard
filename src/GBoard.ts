@@ -8,6 +8,16 @@ import { GBoardapi } from './types'
 //   config.GBname = utilbasename.typeof(config.GBname)
 // }
 export class GBoard {
+  name = GBoardapi.name
+  public utilbasename = new utilbase.util()
+  public canvas = utilbasename.typeof(name)
   constructor() {}
+  listentoUser(config: GBoardapi): any {
+    let using: boolean = false
+    var lastPoint: any = {
+      x: undefined,
+      y: undefined
+    }
+  }
 }
 export default GBoard

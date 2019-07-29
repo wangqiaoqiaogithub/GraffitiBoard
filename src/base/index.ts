@@ -1,8 +1,18 @@
 namespace utilbase {
   export class Util {
+    /**
+     *
+     */
     public typeof(element: any) {
       return typeof element === 'string' ? document.querySelector(element) : element
     }
+    /**
+     *
+     */
+    public indexOf() {}
+    /**
+     *
+     */
     public addEvent(element: string, type: string, fn: any) {
       if (document.addEventListener || Window.addEventListener) {
         element.addEventListener(type, fn, false)
@@ -15,5 +25,13 @@ namespace utilbase {
         return bound
       }
     }
+    /**
+     *
+     */
+    public addClass(element, className) {}
+    /**
+     *
+     */
+    public removeClass(element, className) {}
   }
 }
