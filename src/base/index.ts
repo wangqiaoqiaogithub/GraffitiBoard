@@ -26,12 +26,16 @@ namespace utilbase {
       }
     }
     /**
-     *
+     *通过util类封装设置自定义属性
      */
-    public addClass(element, className) {}
+    public addAttr(element: any, className: string) {
+      return element.setAttribute('', className)
+    }
     /**
-     *
+     *通过util类删除自定义属性
      */
-    public removeClass(element, className) {}
+    public removeAttr(element, className: string) {
+      return element.removeAttribute('', className)
+    }
   }
 }
