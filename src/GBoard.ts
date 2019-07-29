@@ -9,7 +9,7 @@ import { GBoardapi } from './types'
 // }
 export class GBoard extends GBoardapi {
   constructor(name: any) {
-    this.name = GBoardapi.name
+    this.name = GBoardapi.GBname
   }
   public utilbasename = new utilbase.util()
   public canvas = utilbasename.typeof(this.name)
