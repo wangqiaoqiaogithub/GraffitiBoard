@@ -3,21 +3,27 @@
 // ...
 import { utilbase } from './base'
 import { GBoardapi } from './types'
-// function GBoard(config: GBoardapi): any {
-//   var utilbasename = new utilbase.util()
-//   config.GBname = utilbasename.typeof(config.GBname)
-// }
 export class GBoard extends GBoardapi {
   constructor(name: any) {
     this.name = GBoardapi.GBname
   }
-  public utilbasename = new utilbase.util()
+  public utilbasename = new utilbase.Util()
   public canvas = utilbasename.typeof(this.name)
-  listentoUser(config: GBoardapi): any {
-    let using: boolean = false
+  public context = canvas.getContext('2d')
+  private listentoUser(config: GBoardapi): void {
+    var using: boolean = false
     var lastPoint: any = {
       x: undefined,
       y: undefined
+    }
+    if (document.body.ontouchstart === undefined) {
+      utilbasename.addEvent(canvas, 'mousedown', a => {
+        var x = a.clientX
+        var y = a.clientY
+        if (!using) {
+          return
+        }
+      })
     }
   }
 }
