@@ -1,3 +1,8 @@
+/**
+ * GraffitiBoard.js v0.1.0
+ * (c) 2019 by wangqiaoqiao
+ * Released under the MIT License.
+ */
 export namespace utilbase {
   export class Util {
     /**
@@ -9,11 +14,11 @@ export namespace utilbase {
     /**
      *
      */
-    public addEvent(element: string, type: string, fn: any) {
-      if (document.addEventListener || window.addEventListener) {
+    public addEvent(element: any, type: string, fn: any) {
+      if ((document as any).addEventListener || (window as any).addEventListener) {
         element.addEventListener(type, fn, false)
         return element
-      } else if (document.attachEvent || window.attachEvent) {
+      } else if ((document as any).attachEvent || (window as any).attachEvent) {
         var bound: any = () => {
           return fn.apply(element, this) //arguments
         }

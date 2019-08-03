@@ -4,11 +4,12 @@
 import { utilbase } from './base/index'
 import { GBoardapi } from './types'
 export class GBoard {
+  name: string
   constructor(config: GBoardapi) {
     this.name = config.GBname
     this.lineWidth = config.lineWidth
   }
-  public utilbasename: object = new utilbase.Util()
+  public utilbasename: any = new utilbase.Util()
   public canvas: any = this.utilbasename.typeof(this.name)
   public context: any = this.canvas.getContext('2d')
   public eraserEnabled: boolean = true
