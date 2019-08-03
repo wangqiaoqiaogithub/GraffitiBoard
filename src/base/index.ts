@@ -1,21 +1,21 @@
-namespace utilbase {
+export namespace utilbase {
   export class Util {
     /**
      *
      */
-    public typeof(element: any) {
+    public typeof(element: string) {
       return typeof element === 'string' ? document.querySelector(element) : element
     }
     /**
      *
      */
     public addEvent(element: string, type: string, fn: any) {
-      if (document.addEventListener || Window.addEventListener) {
+      if ((document.addEventListener as any) || (window.addEventListener as any)) {
         element.addEventListener(type, fn, false)
         return element
-      } else if (document.attachEvent || Window.attachEvent) {
+      } else if ((document.attachEvent as any) || (window.attachEvent as any)) {
         var bound: any = () => {
-          return fn.apply(element, arguments)
+          return fn.apply(element, arguments as any)
         }
         element.attachEvent('on' + type, bound)
         return bound

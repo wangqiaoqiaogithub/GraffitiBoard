@@ -1,4 +1,4 @@
-interface GBoardapi {
+export interface GBoardapi {
   GBname: string
   lineWidth: number
 }

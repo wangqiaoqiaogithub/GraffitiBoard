@@ -1,66 +1,67 @@
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 // import "core-js/fn/array.find"
 // ...
-import { utilbase } from './base'
+import { utilbase } from './base/index'
 import { GBoardapi } from './types'
-export class GBoard extends GBoardapi {
-  constructor(name: any, lineWidth: number) {
-    this.name = GBoardapi.GBname
-    this.lineWidth = GBoardapi.lineWidth
+export class GBoard {
+  constructor(config: GBoardapi) {
+    this.name = config.GBname
+    this.lineWidth = config.lineWidth
   }
   public utilbasename: object = new utilbase.Util()
-  public canvas: any = utilbasename.typeof(this.name)
-  public context: any = canvas.getContext('2d')
+  public canvas: any = this.utilbasename.typeof(this.name)
+  public context: any = this.canvas.getContext('2d')
   public eraserEnabled: boolean = true
   public lineWidth: number = 5
+
   public drawCricle(x1: number, y1: number, x2: number, y2: number) {
-    context.beginPath()
-    context.moveTo(x1, y1)
-    context.lineWidth = lineWidth
-    context.lineTo(x2, y2)
-    context.stroke()
-    context.closePath()
+    this.context.beginPath()
+    this.context.moveTo(x1, y1)
+    this.context.lineWidth = this.lineWidth
+    this.context.lineTo(x2, y2)
+    this.context.stroke()
+    this.context.closePath()
   }
   public drawLine(x: number, y: number, radius: number) {
-    context.beginPath()
-    context.arc(x, y, radius, 0, Math.PI * 2)
-    context.fill()
+    this.context.beginPath()
+    this.context.arc(x, y, radius, 0, Math.PI * 2)
+    this.context.fill()
   }
-  private listentoUser(config: GBoardapi): void {
+  public listentoUser(config: GBoardapi): void {
     var using: boolean = false
-    var lastPoint: object = {
+    var lastPoint: any = {
       x: undefined,
       y: undefined
     }
     if (document.body.ontouchstart === undefined) {
-      utilbasename.addEvent(canvas, 'mousedown', a => {
+      this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
         let x: any = a.clientX
         let y: any = a.clientY
         let using: boolean = true
         if (eraserEnabled) {
-          context.clearRect(x - 5, y - 5, 10, 10)
+          this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
-          var lastPoint: object = {
+          var lastPoint: any = {
             x: x,
             y: y
           }
         }
       })
-      utilbasename.addEvent(canvas, 'mousemove', a => {
+      this.utilbasename.addEvent(this.canvas, 'mousemove', (a: any) => {
         let x: any = a.clientX
         let y: any = a.clientY
         if (!using) {
           return
         }
-        if (eraserEnabled) {
-          context.clearRect(x - 5, y - 5, 10, 10)
+        if (this.eraserEnabled) {
+          this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
-          var newPoint: object = {
+          var newPoint: any = {
             x: x,
             y: y
           }
-          drawCricle(x, y, lineWidth / 2)
-          drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+          this.drawCricle(x, y, lineWidth / 2)
+          this.drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
           lastPoint = newPoint
         }
       })

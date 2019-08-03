@@ -3,6 +3,7 @@
  * (c) 2019 by wangqiaoqiao
  * Released under the MIT License.
  */
-import GBoard from './GBoard.ts'
-export * from './src'
+import GBoard from './GBoard'
+export * from './base'
+export * from './types'
 export default GBoard
