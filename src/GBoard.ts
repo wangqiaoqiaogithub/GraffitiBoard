@@ -14,7 +14,7 @@ export class GBoard {
   public eraserEnabled: boolean = true
   public lineWidth: number = 5
 
-  public drawCricle(x1: number, y1: number, x2: number, y2: number) {
+  private drawCricle(x1: number, y1: number, x2: number, y2: number) {
     this.context.beginPath()
     this.context.moveTo(x1, y1)
     this.context.lineWidth = this.lineWidth
@@ -22,7 +22,7 @@ export class GBoard {
     this.context.stroke()
     this.context.closePath()
   }
-  public drawLine(x: number, y: number, radius: number) {
+  private drawLine(x: number, y: number, radius: number, newytwo: number) {
     this.context.beginPath()
     this.context.arc(x, y, radius, 0, Math.PI * 2)
     this.context.fill()
@@ -38,7 +38,7 @@ export class GBoard {
         let x: any = a.clientX
         let y: any = a.clientY
         let using: boolean = true
-        if (eraserEnabled) {
+        if (this.eraserEnabled) {
           this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
           var lastPoint: any = {
@@ -60,7 +60,7 @@ export class GBoard {
             x: x,
             y: y
           }
-          this.drawCricle(x, y, lineWidth / 2)
+          this.drawCricle(x, y, this.lineWidth / 2, 0)
           this.drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
           lastPoint = newPoint
         }

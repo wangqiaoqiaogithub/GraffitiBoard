@@ -10,12 +10,12 @@ export namespace utilbase {
      *
      */
     public addEvent(element: string, type: string, fn: any) {
-      if ((document.addEventListener as any) || (window.addEventListener as any)) {
+      if (document.addEventListener || window.addEventListener) {
         element.addEventListener(type, fn, false)
         return element
-      } else if ((document.attachEvent as any) || (window.attachEvent as any)) {
+      } else if (document.attachEvent || window.attachEvent) {
         var bound: any = () => {
-          return fn.apply(element, arguments as any)
+          return fn.apply(element, this) //arguments
         }
         element.attachEvent('on' + type, bound)
         return bound
