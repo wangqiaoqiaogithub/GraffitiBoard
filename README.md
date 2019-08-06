@@ -21,6 +21,6 @@
     Explain
   </h2>
   <p font-size="20px" align="left">
-    This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
+    :computer: This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
   </p>
 </div>
