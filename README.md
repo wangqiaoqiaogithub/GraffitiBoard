@@ -29,6 +29,6 @@
     About Me
   </h2>
   <p font-size="20px" align="left">
-    :point_right: A Chinese who does not want to live in the shadow of others but wants to build his own future
+   A Chinese who does not want to live in the shadow of others but wants to build future
   </p>
 </div>
