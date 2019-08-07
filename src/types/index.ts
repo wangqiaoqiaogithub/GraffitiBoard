@@ -1,5 +1,9 @@
-export interface GBoardapi {
-  GBname: string
+export type Method = {
+  classname: string
+  naturename: string
+}
+export interface GBoardApi {
   lineWidth: number
-  earser: string
+  eraser: string
+  eraserAttr: Method
 }

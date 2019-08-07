@@ -2,14 +2,22 @@
 // import "core-js/fn/array.find"
 // ...
 import { utilbase } from './base/index'
-import { GBoardapi } from './types'
+import { GBoardApi } from './types'
 export class GBoard {
   name: string
   lineWidth: number
   eraser: string
-  constructor(config: GBoardapi) {
-    this.name = config.GBname
+  eraserAttr: {
+    classname: string
+    naturename: string
+  }
+  constructor(name: string, config: GBoardApi) {
+    this.name = name
     this.lineWidth = config.lineWidth
+    this.eraser = config.eraser
+    this.eraserAttr = config.eraserAttr
+    this.eraserAttr.classname = config.eraserAttr.classname
+    this.eraserAttr.naturename = config.eraserAttr.naturename
   }
   public utilbasename: any = new utilbase.Util()
   public canvas: any = this.utilbasename.typeof(this.name)
@@ -28,17 +36,17 @@ export class GBoard {
     this.context.arc(x, y, radius, 0, Math.PI * 2)
     this.context.fill()
   }
-  public listentoUser(config: GBoardapi): void {
-    var using: boolean = false
-    var lastPoint: any = {
+  public listentoUser(config: GBoardApi): void {
+    let using: boolean = false
+    let lastPoint: any = {
       x: undefined,
       y: undefined
     }
     if (document.body.ontouchstart === undefined) {
       this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
-        let x: any = a.clientX
-        let y: any = a.clientY
-        let using: boolean = true
+        const x: any = a.clientX
+        const y: any = a.clientY
+        const using: boolean = true
         if (this.eraserEnabled) {
           this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
@@ -49,8 +57,8 @@ export class GBoard {
         }
       })
       this.utilbasename.addEvent(this.canvas, 'mousemove', (a: any) => {
-        let x: any = a.clientX
-        let y: any = a.clientY
+        const x: any = a.clientX
+        const y: any = a.clientY
         let lineWidth = this.lineWidth
         if (!using) {
           return
@@ -72,8 +80,8 @@ export class GBoard {
       })
     } else {
       this.utilbasename.addEvent(this.canvas, 'touchstart', (a: any) => {
-        let x: any = a.touches[0].clientX
-        let y: any = a.touches[0].clientY
+        const x: any = a.touches[0].clientX
+        const y: any = a.touches[0].clientY
         let using: boolean = true
         if (this.eraserEnabled) {
           this.context.clearRect(x - 5, y - 5, 10, 10)
@@ -85,8 +93,8 @@ export class GBoard {
         }
       })
       this.utilbasename.addEvent(this.canvas, 'touchmove', (a: any) => {
-        var x: any = a.touches[0].clientX
-        var y: any = a.touches[0].clientY
+        const x: any = a.touches[0].clientX
+        const y: any = a.touches[0].clientY
         let lineWidth = this.lineWidth
         if (!using) {
           return
@@ -108,9 +116,15 @@ export class GBoard {
       })
     }
   }
-  public userEvent(config: GBoardapi): void {
-    this.eraser = config.eraser
+  public userEvent(config: GBoardApi): void {
     let eraser = this.utilbasename.typeof(this.eraser)
+    let eraserAttr = this.eraserAttr
+    this.utilbasename.addEvent(eraser, 'click', () => {
+      let eAttrclassname = this.eraserAttr.classname
+      let eAttrnaturename = this.eraserAttr.naturename
+      this.eraserEnabled = true
+      this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrclassname)
+    })
   }
 }
 export default GBoard
