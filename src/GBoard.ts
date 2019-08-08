@@ -8,16 +8,29 @@ export class GBoard {
   lineWidth: number
   eraser: string
   eraserAttr: {
-    classname: string
     naturename: string
+    elementname: any
   }
+  pen: string
+  penAttr: {
+    naturename: string
+    elementname: string
+  }
+  clear: string
+  download: string
   constructor(name: string, config: GBoardApi) {
     this.name = name
     this.lineWidth = config.lineWidth
     this.eraser = config.eraser
     this.eraserAttr = config.eraserAttr
-    this.eraserAttr.classname = config.eraserAttr.classname
     this.eraserAttr.naturename = config.eraserAttr.naturename
+    this.eraserAttr.elementname = config.eraserAttr.elementname
+    this.pen = config.pen
+    this.penAttr = config.penAttr
+    this.penAttr.naturename = config.penAttr.naturename
+    this.penAttr.elementname = config.penAttr.elementname
+    this.clear = config.clear
+    this.download = config.download
   }
   public utilbasename: any = new utilbase.Util()
   public canvas: any = this.utilbasename.typeof(this.name)
@@ -35,6 +48,62 @@ export class GBoard {
     this.context.beginPath()
     this.context.arc(x, y, radius, 0, Math.PI * 2)
     this.context.fill()
+  }
+  private eraserEvent() {
+    let eraser = this.utilbasename.typeof(this.eraser)
+    let eraserAttr = this.eraserAttr
+    let pen = this.penAttr
+    this.utilbasename.addEvent(eraser, 'click', () => {
+      let eAttrnaturename = this.eraserAttr.naturename
+      let eAttrelementname = this.eraserAttr.elementname
+      let penAnaturename = this.penAttr.naturename
+      let penAelementname = this.penAttr.elementname
+
+      this.eraserEnabled = true
+      this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname)
+      this.utilbasename.removeAttr(pen, penAnaturename, penAelementname)
+    })
+  }
+  private penEvent() {
+    let eraser = this.utilbasename.typeof(this.eraser)
+    let eraserAttr = this.eraserAttr
+    let pen = this.utilbasename.typeof(this.pen)
+    this.utilbasename.addEvent(pen, 'click', () => {
+      let eAttrnaturename = this.eraserAttr.naturename
+      let eAttrelementname = this.eraserAttr.elementname
+      let penAnaturename = this.penAttr.naturename
+      let penAelementname = this.penAttr.elementname
+      this.eraserEnabled = false
+      this.utilbasename.addAttr(pen, penAnaturename, penAelementname)
+      this.utilbasename.removeAttr(eraser, penAnaturename, eAttrelementname)
+    })
+  }
+  private clearEvent() {
+    let clear = this.utilbasename.typeof(this.clear)
+    let canvas = this.canvas
+    this.utilbasename.addEvent(clear, 'click', () => {
+      this.context.clearRect(0, 0, canvas.width, canvas.height)
+    })
+  }
+  private downloadEvent() {
+    let download = this.utilbasename.typeof(this.download)
+  }
+  private canvassize() {
+    let pageWidth: any = document.documentElement.clientWidth
+    let pageHeight: any = document.documentElement.clientHeight
+    this.canvas.width = pageWidth
+    this.canvas.height = pageHeight
+  }
+  public autoCanvasSize() {
+    this.canvassize()
+    this.utilbasename.addEvent(Window, 'resize', () => {
+      this.canvassize()
+    })
+  }
+  public userEvent(config: GBoardApi): void {
+    this.eraserEvent()
+    this.penEvent()
+    this.clearEvent()
   }
   public listentoUser(config: GBoardApi): void {
     let using: boolean = false
@@ -115,16 +184,6 @@ export class GBoard {
         using = false
       })
     }
-  }
-  public userEvent(config: GBoardApi): void {
-    let eraser = this.utilbasename.typeof(this.eraser)
-    let eraserAttr = this.eraserAttr
-    this.utilbasename.addEvent(eraser, 'click', () => {
-      let eAttrclassname = this.eraserAttr.classname
-      let eAttrnaturename = this.eraserAttr.naturename
-      this.eraserEnabled = true
-      this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrclassname)
-    })
   }
 }
 export default GBoard
