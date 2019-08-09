@@ -19,6 +19,7 @@ export class GBoard {
   clear: string
   download: string
   constructor(config: GBoardApi) {
+    this.name = config.GBname
     this.lineWidth = config.lineWidth
     this.eraser = this.utilbasename.typeof(config.eraser)
     this.eraserAttr = config.eraserAttr
@@ -31,11 +32,17 @@ export class GBoard {
     this.clear = this.utilbasename.typeof(config.clear)
     this.download = config.download
   }
-  public name = config.name
   public utilbasename: any = new utilbase.Util()
-  public canvas: any = this.utilbasename.typeof(this.name)
-  public context: any = this.canvas.getContext('2d')
   public eraserEnabled: boolean = true
+  public canvasname: any = this.name
+  public canvas: any = this.utilbasename.typeof(this.canvasname)
+  public context: any = this.canvas.getContext('2d')
+  public init(config: GBoardApi) {
+    // this.userEvent(config);
+    // this.clearEvent();
+    // this.listentoUser(config);
+    // this.autoCanvasSize();
+  }
   private eraserEvent() {
     let eraser = this.utilbasename.typeof(this.eraser)
     let eraserAttr = this.eraserAttr

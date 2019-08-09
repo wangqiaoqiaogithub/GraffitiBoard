@@ -3,6 +3,7 @@ export type Method = {
   elementname: any
 }
 export interface GBoardApi {
+  GBname: string
   lineWidth: number
   eraser: string
   eraserAttr: Method

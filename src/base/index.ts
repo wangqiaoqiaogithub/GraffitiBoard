@@ -21,11 +21,6 @@ export namespace utilbase {
       } else if ((document as any).attachEvent) {
         var bound: any = function() {
           return fn.apply(element, arguments) //不能使用箭头函数表达式(特性)
-          /**以下为箭头函数表达式带来的以下主要特性
-           * 1.箭头函数表达式的语法比函数表达式更短
-           * 2.并且没有自己的这，arguments，super或new.target
-           * 3.这些函数表达式更适用于那些本来需要匿名函数的地方，并且它们不能用作构造函数。
-           */
         }
         element.attachEvent('on' + type, bound)
         return bound
