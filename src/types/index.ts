@@ -2,6 +2,9 @@ export type Method = {
   naturename: string
   elementname: any
 }
+export type downloadOptions = {
+  downloadFormat: string
+}
 export interface GBoardApi {
   GBname: string
   lineWidth: number
@@ -11,4 +14,5 @@ export interface GBoardApi {
   penAttr: Method
   clear: string
   download: string
+  downloadType: downloadOptions
 }

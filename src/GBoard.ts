@@ -19,6 +19,9 @@ export class GBoard {
   }
   clear: string
   download: string
+  downloadType: {
+    downloadFormat: string
+  }
   constructor(config: GBoardApi) {
     this.name = config.GBname
     this.lineWidth = config.lineWidth
