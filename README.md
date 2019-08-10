@@ -28,7 +28,7 @@
   <h2 align="left">
     License
   </h2>
-  <a alt="MIT">
-    GraffitiBoard is licensed under the MIT License.
-  </a>
+  <p>
+    GraffitiBoard is licensed under the <a alt="MIT协议" src="https://github.com/wangqiaoqiaogithub/GraffitiBoard/blob/master/LICENSE">MIT</a> License.
+  </p>
 </div>
