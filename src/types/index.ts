@@ -2,6 +2,9 @@ export type Method = {
   naturename: string
   elementname: any
 }
+export type downloadOptions = {
+  downloadFormat: string
+}
 export interface GBoardApi {
   GBname: string
   lineWidth: number

@@ -19,6 +19,9 @@ export class GBoard {
   }
   clear: string
   download: string
+  downloadType: {
+    downloadFormat: string
+  }
   constructor(config: GBoardApi) {
     this.name = config.GBname
     this.lineWidth = config.lineWidth
@@ -32,6 +35,8 @@ export class GBoard {
     this.penAttr.elementname = config.penAttr.elementname
     this.clear = this.utilbasename.typeof(config.clear)
     this.download = config.download
+    this.downloadType = config.downloadType
+    this.downloadFormat = config.downloadFormat
   }
   public utilbasename: any = new utilbase.Util()
   public eraserEnabled: boolean = true
