@@ -79,8 +79,24 @@ export class GBoard {
       this.context.clearRect(0, 0, canvas.width, canvas.height)
     })
   }
-  private downloadEvent() {
+  private downloadEvent(config: GBoardApi) {
     let download = this.utilbasename.typeof(this.download)
+    let canvas = this.canvas
+    this.utilbasename.addEvent(download, 'click', () => {
+      const compositeOperation = this.context.globalCompositeOperation
+      this.context.globalCompositeOperation = 'destination-over'
+      this.context.fillStyle = '#fff'
+      this.context.fillRect(0, 0, canvas.width, canvas.height)
+      var imageData = canvas.toDataURL('image/png')
+      this.context.putImageData(context.getImageData(0, 0, canvas.width, canvas.height), 0, 0)
+      this.context.globalCompositeOperation = compositeOperation
+      let a = document.createElement('a')
+      document.body.appendChild(a)
+      a.href = imageData
+      a.download = 'mypaint'
+      a.target = '_blank'
+      a.click()
+    })
   }
   private canvassize() {
     let pageWidth: any = document.documentElement.clientWidth
