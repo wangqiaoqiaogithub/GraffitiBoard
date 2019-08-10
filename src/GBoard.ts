@@ -3,6 +3,7 @@
 // ...
 import { utilbase } from './base/index'
 import { GBoardApi } from './types'
+import { Mainpoint } from './main'
 export class GBoard {
   name: string
   lineWidth: number
