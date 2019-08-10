@@ -21,6 +21,14 @@
     Explain
   </h2>
   <p font-size="20px" align="left">
-    :computer: This is a graffiti drawing board tool based on Typescript, if you just want to learn it, try to write it.
+    :computer: This is a graffiti drawing board tool based on Typescript, if you just want to learn Typescript, try to write it.
   </p>
+</div>
+<div>
+  <h2 align="left">
+    License
+  </h2>
+  <a alt="MIT">
+    GraffitiBoard is licensed under the MIT License.
+  </a>
 </div>
