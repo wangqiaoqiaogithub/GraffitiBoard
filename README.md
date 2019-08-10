@@ -29,6 +29,6 @@
     License
   </h2>
   <p>
-    GraffitiBoard is licensed under the <a alt="MIT协议" src="https://github.com/wangqiaoqiaogithub/GraffitiBoard/blob/master/LICENSE">MIT</a> License.
+    GraffitiBoard is licensed under the <a alt="MIT协议" href="https://github.com/wangqiaoqiaogithub/GraffitiBoard/blob/master/LICENSE">MIT</a> License.
   </p>
 </div>
