@@ -21,6 +21,7 @@ export class GBoard {
   download: string
   downloadType: {
     downloadFormat: string
+    PictureName: string
   }
   constructor(config: GBoardApi) {
     this.name = config.GBname
@@ -37,6 +38,7 @@ export class GBoard {
     this.download = config.download
     this.downloadType = config.downloadType
     this.downloadFormat = config.downloadFormat
+    this.PictureName = config.PictureName
   }
   public utilbasename: any = new utilbase.Util()
   public eraserEnabled: boolean = true
@@ -87,18 +89,20 @@ export class GBoard {
   private downloadEvent(config: GBoardApi) {
     let download = this.utilbasename.typeof(this.download)
     let canvas = this.canvas
+    let dFormat = this.downloadFormat
+    let PictureName = this.PictureName
     this.utilbasename.addEvent(download, 'click', () => {
       const compositeOperation = this.context.globalCompositeOperation
       this.context.globalCompositeOperation = 'destination-over'
       this.context.fillStyle = '#fff'
       this.context.fillRect(0, 0, canvas.width, canvas.height)
-      var imageData = canvas.toDataURL('image/png')
+      var imageData = canvas.toDataURL(dFormat)
       this.context.putImageData(context.getImageData(0, 0, canvas.width, canvas.height), 0, 0)
       this.context.globalCompositeOperation = compositeOperation
       let a = document.createElement('a')
       document.body.appendChild(a)
       a.href = imageData
-      a.download = 'mypaint'
+      a.download = PictureName
       a.target = '_blank'
       a.click()
     })
@@ -106,8 +110,11 @@ export class GBoard {
   private canvassize() {
     let pageWidth: any = document.documentElement.clientWidth
     let pageHeight: any = document.documentElement.clientHeight
+    // 把变化之前的画布内容copy一份，然后重新画到画布上
+    let imgdata = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height)
     this.canvas.width = pageWidth
     this.canvas.height = pageHeight
+    this.context.putImageData(imgData, 0, 0)
   }
   public autoCanvasSize() {
     this.canvassize()
@@ -122,6 +129,7 @@ export class GBoard {
   }
   public drawCricle(x1: number, y1: number, x2: number, y2: number) {
     this.context.beginPath()
+    this.context.strokeStyle = 'yellow'
     this.context.moveTo(x1, y1)
     this.context.lineWidth = this.lineWidth
     this.context.lineTo(x2, y2)

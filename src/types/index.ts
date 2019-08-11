@@ -4,6 +4,7 @@ export type Method = {
 }
 export type downloadOptions = {
   downloadFormat: string
+  PictureName: string
 }
 export interface GBoardApi {
   GBname: string
