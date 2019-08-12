@@ -6,6 +6,7 @@ export type downloadOptions = {
   downloadFormat: string
   PictureName: string
 }
+//用type关键字去定义为了接口引用类型
 export interface GBoardApi {
   GBname: string
   lineWidth: number
