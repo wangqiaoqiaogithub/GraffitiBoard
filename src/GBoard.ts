@@ -3,7 +3,7 @@
 // ...
 import { utilbase } from './base/index'
 import { GBoardApi } from './types'
-import { Mainpoint } from './main'
+// import { Mainpoint } from './main'
 export class GBoard {
   name: string
   lineWidth: number
@@ -37,8 +37,8 @@ export class GBoard {
     this.clear = this.utilbasename.typeof(config.clear)
     this.download = config.download
     this.downloadType = config.downloadType
-    this.downloadFormat = config.downloadFormat
-    this.PictureName = config.PictureName
+    this.downloadType.downloadFormat = config.downloadType.downloadFormat
+    this.downloadType.PictureName = config.downloadType.PictureName
   }
   public utilbasename: any = new utilbase.Util()
   public eraserEnabled: boolean = true
@@ -89,15 +89,15 @@ export class GBoard {
   private downloadEvent(config: GBoardApi) {
     let download = this.utilbasename.typeof(this.download)
     let canvas = this.canvas
-    let dFormat = this.downloadFormat
-    let PictureName = this.PictureName
+    let dFormat = this.downloadType.downloadFormat
+    let PictureName = this.downloadType.PictureName
     this.utilbasename.addEvent(download, 'click', () => {
       const compositeOperation = this.context.globalCompositeOperation
       this.context.globalCompositeOperation = 'destination-over'
       this.context.fillStyle = '#fff'
       this.context.fillRect(0, 0, canvas.width, canvas.height)
-      var imageData = canvas.toDataURL(dFormat)
-      this.context.putImageData(context.getImageData(0, 0, canvas.width, canvas.height), 0, 0)
+      let imageData = canvas.toDataURL(dFormat)
+      this.context.putImageData(this.context.getImageData(0, 0, canvas.width, canvas.height), 0, 0)
       this.context.globalCompositeOperation = compositeOperation
       let a = document.createElement('a')
       document.body.appendChild(a)
@@ -108,10 +108,10 @@ export class GBoard {
     })
   }
   private canvassize() {
+    // 把变化之前的画布内容copy一份，然后重新画到画布上
+    let imgData: any = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height)
     let pageWidth: any = document.documentElement.clientWidth
     let pageHeight: any = document.documentElement.clientHeight
-    // 把变化之前的画布内容copy一份，然后重新画到画布上
-    let imgdata = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height)
     this.canvas.width = pageWidth
     this.canvas.height = pageHeight
     this.context.putImageData(imgData, 0, 0)
