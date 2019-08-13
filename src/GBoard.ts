@@ -5,7 +5,7 @@ import { utilbase } from './base/index'
 import { GBoardApi } from './types'
 // import { Mainpoint } from './main'
 export class GBoard {
-  name: string
+  public name: string
   lineWidth: number
   eraser: string
   eraserAttr: {
@@ -142,6 +142,7 @@ export class GBoard {
   }
   public listentoUser(config: GBoardApi): void {
     let using: boolean = false
+    let lineWidth = this.lineWidth
     let lastPoint: any = {
       x: undefined,
       y: undefined
@@ -150,9 +151,9 @@ export class GBoard {
       this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
         const x: any = a.clientX
         const y: any = a.clientY
-        let using: boolean = true
+        using = true
         if (this.eraserEnabled) {
-          this.context.clearRect(x - 5, y - 5, 10, 10)
+          this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
         } else {
           lastPoint = {
             x: x,
@@ -163,18 +164,17 @@ export class GBoard {
       this.utilbasename.addEvent(this.canvas, 'mousemove', (a: any) => {
         const x: any = a.clientX
         const y: any = a.clientY
-        let lineWidth = this.lineWidth
         if (!using) {
           return
         }
         if (this.eraserEnabled) {
-          this.context.clearRect(x - 5, y - 5, 10, 10)
+          this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
         } else {
           var newPoint: any = {
             x: x,
             y: y
           }
-          this.drawCricle(x, y, lineWidth / 2, 0)
+          this.drawCricle(x, y, lineWidth / 2)
           this.drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
           lastPoint = newPoint
         }
@@ -186,9 +186,9 @@ export class GBoard {
       this.utilbasename.addEvent(this.canvas, 'touchstart', (a: any) => {
         const x: any = a.touches[0].clientX
         const y: any = a.touches[0].clientY
-        let using: boolean = true
+        using = true
         if (this.eraserEnabled) {
-          this.context.clearRect(x - 5, y - 5, 10, 10)
+          this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
         } else {
           lastPoint = {
             x: x,
@@ -199,18 +199,17 @@ export class GBoard {
       this.utilbasename.addEvent(this.canvas, 'touchmove', (a: any) => {
         const x: any = a.touches[0].clientX
         const y: any = a.touches[0].clientY
-        let lineWidth = this.lineWidth
         if (!using) {
           return
         }
         if (this.eraserEnabled) {
-          this.context.clearRect(x - 5, y - 5, 10, 10)
+          this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
         } else {
           var newPoint: any = {
             x: x,
             y: y
           }
-          this.drawCricle(x, y, lineWidth / 2, 0)
+          this.drawCricle(x, y, lineWidth / 2)
           this.drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
           lastPoint = newPoint
         }
