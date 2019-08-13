@@ -46,10 +46,10 @@ export class GBoard {
   public canvas: any = this.utilbasename.typeof(this.canvasname)
   public context: any = this.canvas.getContext('2d')
   public init(config: GBoardApi) {
-    // this.userEvent(config);
-    // this.clearEvent();
-    // this.listentoUser(config);
-    // this.autoCanvasSize();
+    this.userEvent(config)
+    this.clearEvent()
+    this.listentoUser(config)
+    this.autoCanvasSize()
   }
   private eraserEvent() {
     let eraser = this.utilbasename.typeof(this.eraser)
@@ -127,16 +127,15 @@ export class GBoard {
     this.penEvent()
     this.clearEvent()
   }
-  public drawCricle(x1: number, y1: number, x2: number, y2: number) {
+  public drawLine(x1: number, y1: number, x2: number, y2: number) {
     this.context.beginPath()
-    this.context.strokeStyle = 'yellow'
     this.context.moveTo(x1, y1)
     this.context.lineWidth = this.lineWidth
     this.context.lineTo(x2, y2)
     this.context.stroke()
     this.context.closePath()
   }
-  public drawLine(x: number, y: number, radius: number, newytwo: number) {
+  public drawCricle(x: number, y: number, radius: number) {
     this.context.beginPath()
     this.context.arc(x, y, radius, 0, Math.PI * 2)
     this.context.fill()
@@ -151,11 +150,11 @@ export class GBoard {
       this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
         const x: any = a.clientX
         const y: any = a.clientY
-        const using: boolean = true
+        let using: boolean = true
         if (this.eraserEnabled) {
           this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
-          var lastPoint: any = {
+          lastPoint = {
             x: x,
             y: y
           }
@@ -191,7 +190,7 @@ export class GBoard {
         if (this.eraserEnabled) {
           this.context.clearRect(x - 5, y - 5, 10, 10)
         } else {
-          var lastPoint: any = {
+          lastPoint = {
             x: x,
             y: y
           }

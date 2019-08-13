@@ -4,7 +4,7 @@ export type Method = {
 }
 export type downloadOptions = {
   downloadFormat: string
-  PictureName: string
+  PictureName: any
 }
 //用type关键字去定义为了接口引用类型
 export interface GBoardApi {
