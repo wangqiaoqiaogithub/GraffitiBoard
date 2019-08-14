@@ -11,6 +11,7 @@ export namespace utilbase {
     public typeof(element: string) {
       return typeof element === 'string' ? document.querySelector(element) : element
     }
+    public extend() {}
     /**
      *通过Util基类中的addEvent方法兼容addEventListener和attachEvent并提供该接口
      */
