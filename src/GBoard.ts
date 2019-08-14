@@ -5,7 +5,9 @@ import { utilbase } from './base/index'
 import { GBoardApi } from './types'
 // import { Mainpoint } from './main'
 export class GBoard {
-  public name: string
+  name: string
+  canvas: any
+  context: any
   lineWidth: number
   eraser: string
   eraserAttr: {
@@ -25,6 +27,8 @@ export class GBoard {
   }
   constructor(config: GBoardApi) {
     this.name = config.GBname
+    this.canvas = this.utilbasename.typeof(this.name)
+    this.context = this.canvas.getContext('2d')
     this.lineWidth = config.lineWidth
     this.eraser = this.utilbasename.typeof(config.eraser)
     this.eraserAttr = config.eraserAttr
@@ -42,9 +46,6 @@ export class GBoard {
   }
   public utilbasename: any = new utilbase.Util()
   public eraserEnabled: boolean = true
-  public canvasname: any = this.name
-  public canvas: any = this.utilbasename.typeof(this.canvasname)
-  public context: any = this.canvas.getContext('2d')
   public init(config: GBoardApi) {
     this.userEvent(config)
     this.clearEvent()
