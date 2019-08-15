@@ -39,7 +39,7 @@ export class GBoard {
     this.penAttr.naturename = config.penAttr.naturename
     this.penAttr.elementname = config.penAttr.elementname
     this.clear = this.utilbasename.typeof(config.clear)
-    this.download = config.download
+    this.download = this.utilbasename.typeof(config.download)
     this.downloadType = config.downloadType
     this.downloadType.downloadFormat = config.downloadType.downloadFormat
     this.downloadType.PictureName = config.downloadType.PictureName
@@ -51,6 +51,7 @@ export class GBoard {
     this.clearEvent()
     this.listentoUser(config)
     this.autoCanvasSize()
+    this.download(config)
   }
   private eraserEvent() {
     let eraser = this.utilbasename.typeof(this.eraser)
