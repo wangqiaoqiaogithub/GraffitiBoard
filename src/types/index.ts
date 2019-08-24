@@ -17,5 +17,8 @@ export interface GBoardApi {
   clear: string
   download: string
   downloadType: downloadOptions
-  undo: Method
+  undo: string
+  undoAttr: Method
+  redo: string
+  redoAttr: Method
 }
