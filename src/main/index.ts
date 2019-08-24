@@ -25,6 +25,14 @@ export namespace Mainpoint {
     public utilbasename: any = new utilbase.Util()
     public canvasDraw() {
       //画板绘制方法
+      step++
+      if (step < canvasHistory.length) {
+        canvasHistory.length = step // 截断数组
+      }
+      // 添加新的绘制到历史记录
+      if (step > 0) {
+        this.utilbasename.addAttr(undo, undonaturename, undoelementname)
+      }
     }
     public cancel() {
       //实现画板撤销方法
