@@ -21,4 +21,5 @@ export interface GBoardApi {
   undoAttr: Method
   redo: string
   redoAttr: Method
+  penrang: string
 }
