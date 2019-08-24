@@ -23,6 +23,9 @@ export namespace Mainpoint {
     public canvasHistory = []
     public step = -1
     public utilbasename: any = new utilbase.Util()
+    public canvasDraw() {
+      //画板绘制方法
+    }
     public cancel() {
       //实现画板撤销方法
       let undo = this.undo
