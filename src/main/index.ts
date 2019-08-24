@@ -12,6 +12,7 @@ export namespace Mainpoint {
     public step = -1
     public utilbasename: any = new utilbase.Util()
     public cancel() {
+      //实现画板撤销方法
       let undo = this.undo
       let stepnumber = this.step
       this.utilbasename.addEvent(undo, 'click', () => {
@@ -19,6 +20,9 @@ export namespace Mainpoint {
         } else {
         }
       })
+    }
+    public canvasRedo() {
+      //实现画板重做部分方法
     }
   }
 }
