@@ -206,6 +206,7 @@ export namespace Mainpoint {
         })
         this.utilbasename.addEvent(this.canvas, 'mouseup', () => {
           using = false
+          this.canvasDraw()
         })
       } else {
         this.utilbasename.addEvent(this.canvas, 'touchstart', (a: any) => {
@@ -239,8 +240,9 @@ export namespace Mainpoint {
             lastPoint = newPoint
           }
         })
-        this.utilbasename.addEvent(this.canvas, 'mouseup', () => {
+        this.utilbasename.addEvent(this.canvas, 'touchend', () => {
           using = false
+          this.canvasDraw()
         })
       }
     }
