@@ -59,8 +59,8 @@ export namespace Mainpoint {
       this.redoAttr.naturename = config.redoAttr.naturename
       this.redoAttr.elementname = config.redoAttr.elementname
     }
-    public canvasHistory = []
-    public step = -1
+    public canvasHistory: any = []
+    public step: number = -1
     public utilbasename: any = new utilbase.Util()
     public eraserEnabled: boolean = true
     public init(config: GBoardApi) {
