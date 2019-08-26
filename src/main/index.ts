@@ -195,7 +195,7 @@ export namespace Mainpoint {
           if (this.eraserEnabled) {
             this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
           } else {
-            var newPoint: any = {
+            let newPoint: any = {
               x: x,
               y: y
             }
@@ -231,7 +231,7 @@ export namespace Mainpoint {
           if (this.eraserEnabled) {
             this.context.clearRect(x - lineWidth, y - lineWidth, 10, 10)
           } else {
-            var newPoint: any = {
+            let newPoint: any = {
               x: x,
               y: y
             }

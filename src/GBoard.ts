@@ -6,7 +6,7 @@ import { GBoardApi } from './types'
 import { Mainpoint } from './main'
 export class GBoard extends Mainpoint.mianMethods {
   constructor(config: GBoardApi) {
-    super(config)
+    super(config) //调用父类构造函数(属性和方法)
   }
 }
 export default GBoard
