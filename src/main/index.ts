@@ -1,7 +1,7 @@
 import { utilbase } from '../base/index'
 import { GBoardApi } from '../types/index'
 export namespace Mainpoint {
-  export class mianMethods {
+  export class mainMethods {
     name: string
     canvas: any
     context: any
