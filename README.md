@@ -20,9 +20,7 @@
   <h2 align="left">
     Configuration
   </h2>
-  <p font-size="20px" align="left">
     <img src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
-  </p>
 </div>
 <div>
   <h2 align="left">
