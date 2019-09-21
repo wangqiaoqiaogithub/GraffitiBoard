@@ -16,6 +16,14 @@
     <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
   </a>  
 </div>
+ <div>
+  <h2 align="left">
+    After the packaged output js file needs to reference the API
+  </h2>
+  <p align="left">
+    <img alt="code in typescript" src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
+  </p>
+</div>
 <div>
   <h2 align="left">
     Explain
