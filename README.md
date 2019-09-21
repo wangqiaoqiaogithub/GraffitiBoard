@@ -16,6 +16,12 @@
     <img alt="code in typescript" src="https://img.shields.io/badge/%3C%2F%3E-Typescript-blue.svg?style=flat-square">
   </a>  
 </div>
+ <div>
+  <h2 align="left">
+    Configuration
+  </h2>
+    <img src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
+</div>
 <div>
   <h2 align="left">
     Explain
