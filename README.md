@@ -21,7 +21,7 @@
     Configuration
   </h2>
   <p align="left">
-    <img width="100%" height="100%" src="./examples/img/carbon.png">
+    <img width="100%" height="400px" src="./examples/img/carbon.png">
   </p>
 </div>
 <div>
