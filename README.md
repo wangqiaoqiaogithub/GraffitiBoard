@@ -21,9 +21,7 @@
     Configuration
   </h2>
   <iframe
-  src="https://carbon.now.sh/embed/5btUFDYfYe4yO5VnAiuy"
-  style="transform:scale(0.7); width:1024px; height:473px; border:0; overflow:hidden;"
-  sandbox="allow-scripts allow-same-origin">
+  src="https://carbon.now.sh/embed/5btUFDYfYe4yO5VnAiuy">
   </iframe>
 </div>
 <div>
