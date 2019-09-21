@@ -18,7 +18,7 @@
 </div>
  <div>
   <h2 align="left">
-    Configuration
+    deploy
   </h2>
   <p align="left">
     <img src="./examples/img/carbon.png">
