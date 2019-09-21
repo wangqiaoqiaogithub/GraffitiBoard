@@ -4,7 +4,7 @@
 import { utilbase } from './base/index'
 import { GBoardApi } from './types'
 import { Mainpoint } from './main'
-export class GBoard extends Mainpoint.mainMethods {
+class GBoard extends Mainpoint.mainMethods {
   constructor(config: GBoardApi) {
     super(config) //调用父类构造函数(属性和方法)
   }

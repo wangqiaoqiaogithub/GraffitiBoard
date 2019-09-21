@@ -21,6 +21,14 @@
     Explain
   </h2>
   <p font-size="20px" align="left">
+    <img alt="code in typescript" src="exmples/img/carbon.png">
+  </p>
+</div>
+<div>
+  <h2 align="left">
+    Explain
+  </h2>
+  <p font-size="20px" align="left">
     :computer: This is a graffiti drawing board tool based on Typescript, if you just want to learn Typescript, try to write it.
   </p>
 </div>
