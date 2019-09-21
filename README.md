@@ -18,10 +18,10 @@
 </div>
  <div>
   <h2 align="left">
-    After the packaged output js file needs to reference the API
+    Configuration
   </h2>
   <p align="left">
-    <img alt="code in typescript" src="https://carbon.now.sh/ea625f9c-db1a-4121-bf54-05b92fa7245c">
+    <img alt="code in typescript" src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
   </p>
 </div>
 <div>
