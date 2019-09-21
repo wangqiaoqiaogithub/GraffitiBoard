@@ -20,9 +20,9 @@
   <h2 align="left">
     Configuration
   </h2>
-  <iframe
-  src="https://carbon.now.sh/embed/5btUFDYfYe4yO5VnAiuy">
-  </iframe>
+  <p font-size="20px" align="left">
+    <img alt="code in typescript" src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
+  </p>
 </div>
 <div>
   <h2 align="left">
