@@ -21,7 +21,7 @@
     Configuration
   </h2>
   <p font-size="20px" align="left">
-    <img alt="code in typescript" src="https://carbon.now.sh/embed/5btUFDYfYe4yO5VnAiuy">
+    <img src="https://carbon.now.sh/embed/5btUFDYfYe4yO5VnAiuy">
   </p>
 </div>
 <div>
