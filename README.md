@@ -20,14 +20,8 @@
   <h2 align="left">
     Configuration
   </h2>
-    <img src="https://carbon.now.sh/5btUFDYfYe4yO5VnAiuy">
-</div>
-<div>
-  <h2 align="left">
-    Explain
-  </h2>
-  <p font-size="20px" align="left">
-    <img alt="code in typescript" src="exmples/img/carbon.png">
+  <p align="left">
+    <img src="./examples/img/carbon.png">
   </p>
 </div>
 <div>
