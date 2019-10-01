@@ -33,5 +33,13 @@ export namespace utilbase {
     public removeAttr(element: any, nature: string, className: string) {
       return element.removeAttribute(nature, className)
     }
+    /**
+     * 通过util类封装添加样式的方法放在css函数里
+     */
+    public css(element: any, obj: any) {
+      for (var i in obj) {
+        element.style[i] = obj[i]
+      }
+    }
   }
 }
