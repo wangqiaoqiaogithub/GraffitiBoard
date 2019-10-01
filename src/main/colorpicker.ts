@@ -45,16 +45,39 @@ export namespace colorpick {
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
-    // public cpicker.create(){
-
-    // }
     public cpinit() {
-      let _this = this,
-        initColor = Colorpicker.Opt.initColor,
+      this.cpinit_total()
+    }
+    private cpinit_total() {
+      let initColor = Colorpicker.Opt.initColor,
         rgb = initColor.slice(4, -1).split(',')
+
+      let body = document.getElementsByTagName('body')[0],
+        div = document.createElement('div')
+
+      this.rgba.r = parseInt(rgb[0])
+      this.rgba.g = parseInt(rgb[1])
+      this.rgba.b = parseInt(rgb[2])
+
+      div.innerHTML = this.render()
+      body.appendChild(div)
+
+      this.elem_wrap = div
+      this.fixedBg = div.children[0]
+      this.elem_colorPancel = div.getElementsByClassName('color-pancel')[0]
+      this.pancel_width = this.elem_colorPancel.offsetWidth
+      this.pancel_height = this.elem_colorPancel.offsetHeight
+      this.elem_picker = div.getElementsByClassName('pickerBtn')[0]
+      this.elem_showColor = div.getElementsByClassName('colorpicker-showColor')[0]
+      this.elem_barPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
+      this.elem_barPicker2 = div.getElementsByClassName('colorBar-opacity-picker')[0]
+      this.elem_hexInput = div.getElementsByClassName('colorpicker-hexInput')[0]
+      this.elem_showModeBtn = div.getElementsByClassName('colorpicker-showModeBtn')[0]
+      this.elem_inputWrap = div.getElementsByClassName('colorpicker-inputWrap')[0]
+      this.elem_opacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
     }
     private cprender() {
-      let tpl =
+      var tpl =
         '<div style="position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px;"></div>' +
         '<div style="position: inherit; z-index: 100;">' +
         '<div class="colorpicker-pancel" style="background: rgb(255, 255, 255); border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px; box-sizing: initial; width: 225px; font-family: Menlo;"><div style="width: 100%; padding-bottom: 55%; position: relative; border-radius: 2px 2px 0px 0px; overflow: hidden;">' +
@@ -130,7 +153,6 @@ export namespace colorpick {
         '</div>' +
         '<div class="flexbox-fix" style="padding-top: 16px; display: flex;">' +
         '<div class="flexbox-fix colorpicker-inputWrap" style="-webkit-box-flex: 1; flex: 1 1 0%; display: flex; margin-left: -6px;">'
-
       tpl += this.getInputTpl()
       tpl +=
         '</div>' +
@@ -143,7 +165,6 @@ export namespace colorpick {
         '</div>' +
         '</div>' +
         '</div>'
-
       return tpl
     }
     private getInputTpl() {
