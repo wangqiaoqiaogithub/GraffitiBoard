@@ -1,50 +1,50 @@
 import { utilbase } from '../base/index'
-import { GBoardApi } from '../types/index'
+import { cpickerApi } from '../types/index'
 export namespace colorpick {
   export class cpicker {
-    options: {
-      bindClass: string
-      initColor: string
-      allMode: any
-    }
-    constructor(public cpname: any) {
-      this.options.bindClass = this.utilbasename.typeof(cpname)
-      this.initColor = 'rgb(255,0,0)'
-      this.allMode = ['hex', 'rgb']
-      this.elem_wrap = null //最外层容器
-      this.fixedBG = 0 // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
-      this.elem_colorPancel = null // 色彩面板
-      this.elem_picker = null // 拾色器色块按钮
-      this.elem_barPicker1 = null // 颜色条
-      this.elem_barPicker2 = null // 透明条
-      this.elem_hexInput = null // 显示hex的表单
-      this.elem_showColor = null // 显示当前颜色
-      this.elem_opacityPancel = null // 透明度背景元素
-      this.elem_showModeBtn = null // 切换输入框模式按钮
-      this.elem_inputWrap = null // 输入框外层容器
-      this.pancelLeft = 0
-      this.pancelTop = 0
-      this.downX = 0
-      this.downY = 0
-      this.moveX = 0
-      this.moveY = 0
-      this.pointLeft = 0
-      this.pointTop = 0
-      this.current_mode = 'hex' // input框当前的模式
-      this.rgba = {
-        r: 0,
-        g: 0,
-        b: 0,
-        a: 1
-      }
-      this.hsb = {
-        h: 0,
-        s: 100,
-        b: 100
-      }
+    bindClass: any
+    initColor: string
+    allMode: any
+    constructor(cpicker: cpickerApi) {
+      // this.options.bindClass = this.utilbasename.typeof(cpname)
+      // this.initColor = 'rgb(255,0,0)'
+      // this.allMode = ['hex', 'rgb']
+      this.bindClass = this.cpicker.bindClass
+      this.initColor = this.cpicker.initColor
+      this.allMode = this.cpicker.allMode
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
+    private elem_wrap = null // 最外层容器
+    private fixedBG = 0 // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
+    private elem_colorPancel = null // 色彩面板
+    private elem_picker = null // 拾色器色块按钮
+    private bar_Picker1 = null // 颜色条
+    private bar_Picker2 = null // 透明条
+    private elem_hexInput = null // 显示hex的表单
+    private elem_showColor = null // 显示当前颜色
+    private elem_opacityPancel = null // 透明度背景元素
+    private elem_showModeBtn = null // 切换输入框模式按钮
+    private elem_inputWrap = null // 输入框外层容器
+    private pancelLeft = 0
+    private pancelTop = 0
+    private downX = 0
+    private downY = 0
+    private moveX = 0
+    private moveY = 0
+    private pointLeft = 0
+    private pointTop = 0
+    private rgba = {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1
+    }
+    private hsb = {
+      h: 0,
+      s: 100,
+      b: 100
+    }
     public cpinit() {
       this.cpinit_total()
     }
