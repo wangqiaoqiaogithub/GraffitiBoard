@@ -26,14 +26,14 @@ export namespace colorpick {
     private elem_opacityPancel: any = null // 透明度背景元素
     private elem_showModeBtn: any = null // 切换输入框模式按钮
     private elem_inputWrap: any = null // 输入框外层容器
-    private pancelLeft = 0
-    private pancelTop = 0
+    private pancelLeft: any = 0
+    private pancelTop: any = 0
     private downX: number = 0
     private downY: number = 0
     private moveX: number = 0
     private moveY: number = 0
-    private pointLeft = 0
-    private pointTop = 0
+    private pointLeft: any = 0
+    private pointTop: any = 0
     private current_mode: string = 'hex'
     private pancel_width: any = this.elem_colorPancel.offsetWidth
     private pancel_height: any = this.elem_colorPancel.offsetHeight
@@ -202,15 +202,15 @@ export namespace colorpick {
       return current_mode_html
     }
     public setPosition(x: any, y: any) {
-      let LEFT: any = parseInt(x - this.pancelLeft),
-        TOP: any = parseInt(y - this.pancelTop)
+      let LEFT: any = parseInt('' + x + -this.pancelLeft),
+        TOP: any = parseInt('' + y + -this.pancelTop)
 
-      this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
+      this.pointLeft = Math.max(0, Math.min('' + LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
 
       this.utilbasename.css(this.elem_picker, {
-        left: this.pointLeft,
-        top: this.pointTop
+        left: this.pointLeft + 'px',
+        top: this.pointTop + 'px'
       })
       this.hsb.s = parseInt((100 * this.pointLeft) / this.pancel_width)
       this.hsb.b = parseInt((100 * (this.pancel_height - this.pointTop)) / this.pancel_height)
