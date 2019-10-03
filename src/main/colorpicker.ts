@@ -9,38 +9,41 @@ export namespace colorpick {
       // this.options.bindClass = this.utilbasename.typeof(cpname)
       // this.initColor = 'rgb(255,0,0)'
       // this.allMode = ['hex', 'rgb']
-      this.bindClass = this.cpicker.bindClass
-      this.initColor = this.cpicker.initColor
-      this.allMode = this.cpicker.allMode
+      this.bindClass = cpicker.bindClass
+      this.initColor = cpicker.initColor
+      this.allMode = cpicker.allMode
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
-    private elem_wrap = null // 最外层容器
-    private fixedBG = 0 // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
-    private elem_colorPancel = null // 色彩面板
-    private elem_picker = null // 拾色器色块按钮
-    private bar_Picker1 = null // 颜色条
-    private bar_Picker2 = null // 透明条
-    private elem_hexInput = null // 显示hex的表单
-    private elem_showColor = null // 显示当前颜色
-    private elem_opacityPancel = null // 透明度背景元素
-    private elem_showModeBtn = null // 切换输入框模式按钮
-    private elem_inputWrap = null // 输入框外层容器
+    private elem_wrap: any = null // 最外层容器
+    private fixedBg: any = null // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
+    private elem_colorPancel: any = null // 色彩面板
+    private elem_picker: any = null // 拾色器色块按钮
+    private elem_barPicker1: any = null // 颜色条
+    private elem_barPicker2: any = null // 透明条
+    private elem_hexInput: any = null // 显示hex的表单
+    private elem_showColor: any = null // 显示当前颜色
+    private elem_opacityPancel: any = null // 透明度背景元素
+    private elem_showModeBtn: any = null // 切换输入框模式按钮
+    private elem_inputWrap: any = null // 输入框外层容器
     private pancelLeft = 0
     private pancelTop = 0
-    private downX = 0
-    private downY = 0
-    private moveX = 0
-    private moveY = 0
+    private downX: number = 0
+    private downY: number = 0
+    private moveX: number = 0
+    private moveY: number = 0
     private pointLeft = 0
     private pointTop = 0
-    private rgba = {
+    private current_mode: string = 'hex'
+    private pancel_width: any = this.elem_colorPancel.offsetWidth
+    private pancel_height: any = this.elem_colorPancel.offsetHeight
+    private rgba: any = {
       r: 0,
       g: 0,
       b: 0,
       a: 1
     }
-    private hsb = {
+    private hsb: any = {
       h: 0,
       s: 100,
       b: 100
@@ -49,24 +52,22 @@ export namespace colorpick {
       this.cpinit_total()
     }
     private cpinit_total() {
-      let initColor = Colorpicker.Opt.initColor,
-        rgb = initColor.slice(4, -1).split(',')
+      let initColor: any = this.initColor,
+        rgb: any = initColor.slice(4, -1).split(',')
 
-      let body = document.getElementsByTagName('body')[0],
-        div = document.createElement('div')
+      let body: any = document.getElementsByTagName('body')[0],
+        div: any = document.createElement('div')
 
       this.rgba.r = parseInt(rgb[0])
       this.rgba.g = parseInt(rgb[1])
       this.rgba.b = parseInt(rgb[2])
 
-      div.innerHTML = this.render()
+      div.innerHTML = this.cprender()
       body.appendChild(div)
 
       this.elem_wrap = div
       this.fixedBg = div.children[0]
       this.elem_colorPancel = div.getElementsByClassName('color-pancel')[0]
-      this.pancel_width = this.elem_colorPancel.offsetWidth
-      this.pancel_height = this.elem_colorPancel.offsetHeight
       this.elem_picker = div.getElementsByClassName('pickerBtn')[0]
       this.elem_showColor = div.getElementsByClassName('colorpicker-showColor')[0]
       this.elem_barPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
@@ -77,7 +78,7 @@ export namespace colorpick {
       this.elem_opacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
     }
     private cprender() {
-      var tpl =
+      var tpl: any =
         '<div style="position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px;"></div>' +
         '<div style="position: inherit; z-index: 100;">' +
         '<div class="colorpicker-pancel" style="background: rgb(255, 255, 255); border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px; box-sizing: initial; width: 225px; font-family: Menlo;"><div style="width: 100%; padding-bottom: 55%; position: relative; border-radius: 2px 2px 0px 0px; overflow: hidden;">' +
@@ -168,10 +169,10 @@ export namespace colorpick {
       return tpl
     }
     private getInputTpl() {
-      let current_mode_html = ''
+      let current_mode_html: string = ''
       switch (this.current_mode) {
         case 'hex':
-          let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
+          let hex: any = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
           current_mode_html +=
             '<div style="padding-left: 6px; width: 100%;">' +
             '<div style="position: relative;">' +
@@ -200,16 +201,16 @@ export namespace colorpick {
       }
       return current_mode_html
     }
-    public setPosiition(x: number, y: number) {
-      let LEFT = parseInt(x - this.pancelLeft),
-        TOP = parseInt(y - this.pancelTop)
+    public setPosition(x: any, y: any) {
+      let LEFT: any = parseInt(x - this.pancelLeft),
+        TOP: any = parseInt(y - this.pancelTop)
 
       this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
 
       this.utilbasename.css(this.elem_picker, {
-        left: this.pointLeft + 'px',
-        top: this.pointTop + 'px'
+        left: this.pointLeft,
+        top: this.pointTop
       })
       this.hsb.s = parseInt((100 * this.pointLeft) / this.pancel_width)
       this.hsb.b = parseInt((100 * (this.pancel_height - this.pointTop)) / this.pancel_height)
@@ -218,10 +219,10 @@ export namespace colorpick {
       this.setValue(this.rgba)
     }
     private setBar(elem: any, x: number) {
-      let elem_bar = elem.getElementsByTagName('div')[0],
-        rect = elem.getBoundingClientRect(),
-        elem_width = elem.offsetWidth,
-        X = Math.max(0, Math.min(x - rect.x, elem_width))
+      let elem_bar: any = elem.getElementsByTagName('div')[0],
+        rect: any = elem.getBoundingClientRect(),
+        elem_width: any = elem.offsetWidth,
+        X: any = Math.max(0, Math.min(x - rect.x, elem_width))
 
       if (elem_bar === this.elem_barPicker1) {
         this.utilbasename.css(elem_bar, {
@@ -240,13 +241,13 @@ export namespace colorpick {
       this.setValue(this.rgba)
     }
     private setPancelColor(h: number) {
-      let rgb = this.HSBToRGB({ h: h, s: 100, b: 100 })
+      let rgb: any = this.HSBToRGB({ h: h, s: 100, b: 100 })
       this.utilbasename.css(this.elem_colorPancel, {
         background: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + this.rgba.a + ')'
       })
     }
     private setShowColor() {
-      let rgb = this.HSBToRGB(this.hsb)
+      let rgb: any = this.HSBToRGB(this.hsb)
       this.rgba.r = rgb.r
       this.rgba.g = rgb.g
       this.rgba.b = rgb.b
@@ -271,7 +272,7 @@ export namespace colorpick {
       })
     }
     private setValue(rgb: any) {
-      let hex = '#' + this.rgbToHex(rgb)
+      let hex: string = '#' + this.rgbToHex(rgb)
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
     private setColorByInput(value: any) {
@@ -286,8 +287,8 @@ export namespace colorpick {
           }
           break
         case 'rgb':
-          let inputs = this.elem_wrap.getElementsByTagName('input'),
-            rgb = {
+          let inputs: any = this.elem_wrap.getElementsByTagName('input'),
+            rgb: any = {
               r: inputs[0].value ? parseInt(inputs[0].value) : 0,
               g: inputs[1].value ? parseInt(inputs[1].value) : 0,
               b: inputs[2].value ? parseInt(inputs[2].value) : 0
@@ -298,6 +299,7 @@ export namespace colorpick {
       this.changeViewByHsb()
     }
     private changeViewByHsb() {
+      let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
       this.pointLeft = parseInt((this.hsb.s * this.pancel_width) / 100)
       this.pointTop = parseInt(((100 - this.hsb.b) * this.pancel_height) / 100)
       this.utilbasename.css(this.elem_picker, {
@@ -310,14 +312,31 @@ export namespace colorpick {
       this.utilbasename.css(this.elem_barPicker1, {
         left: (this.hsb.h / 360) * this.elem_barPicker1.parentNode.offsetWidth + 'px'
       })
-
-      let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
     }
     private switch_current_mode() {
       this.current_mode = this.current_mode == 'hex' ? 'rgb' : 'hex'
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
-    private bindmove(elem: any, fn: any, bool: any) {}
+    // private bindmove(elem: any, fn: any, bool: any) {
+    //   this.utilbasename.addEvent("mousedown",(e)=>{
+    //     this.downX = e.pageX;
+    //     this.downY = e.pageY;
+    //     bool? fn.call(this,this.downX,this.downY):fn.call(this,elem,this.downX,this.downY);
+
+    //     this.utilbasename.addEvent(document,"mousemove",mousemove);
+    //     function mousemove(e){
+    //         this.moveX = e.pageX;
+    //         this.moveY = e.pageY;
+    //         bool? fn.call(this,this.moveX,this.moveY):fn.call(this, elem,this.moveX,this.moveY);
+    //         e.preventDefault();
+    //     }
+    //     this.utilbasename.addEvent(document,"mouseup",mouseup);
+    //     function mouseup(e){
+    //         document.removeEventListener("mousemove",mousemove,false)
+    //         document.removeEventListener("mouseup",mouseup,false)
+    //     }
+    //   },false);
+    // }
     private show() {
       this.utilbasename.css(this.elem_wrap, {
         display: 'block'
@@ -329,12 +348,12 @@ export namespace colorpick {
       })
     }
     private HSBToRGB(hsb: any) {
-      let rgb = {}
-      let h = Math.round(hsb.h)
-      let s = Math.round((hsb.s * 255) / 100)
-      let v = Math.round((hsb.b * 255) / 100)
+      const rgb: any = {}
+      let h: number = Math.round(hsb.h)
+      let s: number = Math.round((hsb.s * 255) / 100)
+      let v: number = Math.round((hsb.b * 255) / 100)
       if (s == 10) {
-        rgba.r = rgba.g = rgba.b = v
+        rgb.r = rgb.g = rgb.b = v
       } else {
         let t1 = v
         let t2 = ((255 - s) * v) / 255
@@ -381,8 +400,8 @@ export namespace colorpick {
       })
       return hex.join('')
     }
-    private hexToRgb(hex: any) {
-      let hex = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16)
+    private hexToRgb(hexcolor: any) {
+      let hex = parseInt(hexcolor.indexOf('#') > -1 ? hexcolor.substring(1) : hexcolor, 16)
       return {
         r: hex >> 16,
         g: (hex & 0x00ff00) >> 8,

@@ -1,5 +1,6 @@
 import { utilbase } from '../base/index'
 import { GBoardApi } from '../types/index'
+import { colorpick } from '../main/colorpicker'
 export namespace Mainpoint {
   export class mainMethods {
     name: string
