@@ -205,15 +205,15 @@ export namespace colorpick {
       let LEFT: any = parseInt('' + x + -this.pancelLeft),
         TOP: any = parseInt('' + y + -this.pancelTop)
 
-      this.pointLeft = Math.max(0, Math.min('' + LEFT, this.pancel_width))
+      this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
 
       this.utilbasename.css(this.elem_picker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
       })
-      this.hsb.s = parseInt((100 * this.pointLeft) / this.pancel_width)
-      this.hsb.b = parseInt((100 * (this.pancel_height - this.pointTop)) / this.pancel_height)
+      this.hsb.s = parseInt('' + (100 * this.pointLeft) / this.pancel_width)
+      this.hsb.b = parseInt('' + (100 * (this.pancel_height - this.pointTop)) / this.pancel_height)
 
       this.setShowColor()
       this.setValue(this.rgba)
@@ -228,7 +228,7 @@ export namespace colorpick {
         this.utilbasename.css(elem_bar, {
           left: X + 'px'
         })
-        this.hsb.h = parseInt((360 * X) / elem_width)
+        this.hsb.h = parseInt('' + (360 * X) / elem_width)
       } else {
         this.utilbasename.css(elem_bar, {
           left: X + 'px'
@@ -300,8 +300,8 @@ export namespace colorpick {
     }
     private changeViewByHsb() {
       let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
-      this.pointLeft = parseInt((this.hsb.s * this.pancel_width) / 100)
-      this.pointTop = parseInt(((100 - this.hsb.b) * this.pancel_height) / 100)
+      this.pointLeft = parseInt('' + (this.hsb.s * this.pancel_width) / 100)
+      this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancel_height) / 100)
       this.utilbasename.css(this.elem_picker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
@@ -317,26 +317,34 @@ export namespace colorpick {
       this.current_mode = this.current_mode == 'hex' ? 'rgb' : 'hex'
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
-    // private bindmove(elem: any, fn: any, bool: any) {
-    //   this.utilbasename.addEvent("mousedown",(e)=>{
-    //     this.downX = e.pageX;
-    //     this.downY = e.pageY;
-    //     bool? fn.call(this,this.downX,this.downY):fn.call(this,elem,this.downX,this.downY);
-
-    //     this.utilbasename.addEvent(document,"mousemove",mousemove);
-    //     function mousemove(e){
-    //         this.moveX = e.pageX;
-    //         this.moveY = e.pageY;
-    //         bool? fn.call(this,this.moveX,this.moveY):fn.call(this, elem,this.moveX,this.moveY);
-    //         e.preventDefault();
-    //     }
-    //     this.utilbasename.addEvent(document,"mouseup",mouseup);
-    //     function mouseup(e){
-    //         document.removeEventListener("mousemove",mousemove,false)
-    //         document.removeEventListener("mouseup",mouseup,false)
-    //     }
-    //   },false);
-    // }
+    private bindmove(elem: any, fn: any, bool: any) {
+      let _this = this
+      this.utilbasename.addEvent(
+        'mousedown',
+        (e: any) => {
+          this.downX = e.pageX
+          this.downY = e.pageY
+          bool
+            ? fn.call(_this, _this.downX, _this.downY)
+            : fn.call(_this, elem, _this.downX, _this.downY)
+          var mousemove = (e: any): void => {
+            this.moveX = e.pageX
+            this.moveY = e.pageY
+            bool
+              ? fn.call(_this, _this.moveX, _this.moveY)
+              : fn.call(_this, elem, _this.moveX, _this.moveY)
+            e.preventDefault()
+          }
+          this.utilbasename.addEvent(document, 'mousemove', mousemove)
+          var mouseup = (e: any): void => {
+            document.removeEventListener('mousemove', mousemove, false)
+            document.removeEventListener('mouseup', mouseup, false)
+          }
+          this.utilbasename.addEvent(document, 'mouseup', mouseup)
+        },
+        false
+      )
+    }
     private show() {
       this.utilbasename.css(this.elem_wrap, {
         display: 'block'
