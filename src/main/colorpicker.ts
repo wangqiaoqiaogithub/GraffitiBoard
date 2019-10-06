@@ -2,16 +2,10 @@ import { utilbase } from '../base/index'
 import { cpickerApi } from '../types/index'
 export namespace colorpick {
   export class cpicker {
-    bindClass: any
-    initColor: string
-    allMode: any
+    public bindElem: any
     constructor(cpicker: cpickerApi) {
-      // this.options.bindClass = this.utilbasename.typeof(cpname)
-      // this.initColor = 'rgb(255,0,0)'
-      // this.allMode = ['hex', 'rgb']
-      this.bindClass = cpicker.bindClass
-      this.initColor = cpicker.initColor
-      this.allMode = cpicker.allMode
+      this.bindElem = this.utilbasename.typeof(cpicker.elem)
+
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
@@ -37,6 +31,11 @@ export namespace colorpick {
     private current_mode: string = 'hex'
     private pancel_width: any = this.elem_colorPancel.offsetWidth
     private pancel_height: any = this.elem_colorPancel.offsetHeight
+    private Opt: any = {
+      bindClass: '',
+      initColor: 'rgb(255,0,0)',
+      allMode: ['hex', 'rgb']
+    }
     private rgba: any = {
       r: 0,
       g: 0,
@@ -51,8 +50,17 @@ export namespace colorpick {
     public cpinit() {
       this.cpinit_total()
     }
+    public create(opt: any) {
+      for (var prop in opt) {
+        this.Opt[prop] = opt[prop]
+      }
+      let elemArr: any = this.utilbasename.typeof(this.Opt.bindClass)
+      for (var i = 0; i < elemArr.length; i++) {
+        elemArr[i].colorpicker = new cpicker(elemArr[i])
+      }
+    }
     private cpinit_total() {
-      let initColor: any = this.initColor,
+      let initColor: any = this.Opt.initColor,
         rgb: any = initColor.slice(4, -1).split(',')
 
       let body: any = document.getElementsByTagName('body')[0],
@@ -76,6 +84,28 @@ export namespace colorpick {
       this.elem_showModeBtn = div.getElementsByClassName('colorpicker-showModeBtn')[0]
       this.elem_inputWrap = div.getElementsByClassName('colorpicker-inputWrap')[0]
       this.elem_opacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
+      let elem: any = this.bindElem
+      let top: any = elem.offsetTop
+      let left: any = elem.offsetLeft
+      while (elem.offsetParent) {
+        top += elem.offsetParent.offsetTop
+        left += elem.offsetParent.offsetLeft
+        elem = elem.offsetParent
+      }
+
+      this.pancelLeft = left
+      this.pancelTop = top + this.bindElem.offsetHeight
+      this.utilbasename.css(div, {
+        position: 'absolute',
+        'z-index': 2,
+        display: 'none',
+        left: left + 'px',
+        top: top + this.bindElem.offsetHeight + 'px'
+      })
+
+      this.bindMove(this.elem_colorPancel, this.setPosition, true)
+      this.bindMove(this.elem_barPicker1.parentNode, this.setBar, false)
+      this.bindMove(this.elem_barPicker2.parentNode, this.setBar, false)
     }
     private cprender() {
       var tpl: any =
@@ -274,6 +304,7 @@ export namespace colorpick {
     private setValue(rgb: any) {
       let hex: string = '#' + this.rgbToHex(rgb)
       this.elem_inputWrap.innerHTML = this.getInputTpl()
+      this.Opt.change(this.bindElem, hex)
     }
     private setColorByInput(value: any) {
       switch (this.current_mode) {
@@ -317,7 +348,7 @@ export namespace colorpick {
       this.current_mode = this.current_mode == 'hex' ? 'rgb' : 'hex'
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
-    private bindmove(elem: any, fn: any, bool: any) {
+    private bindMove(elem: any, fn: any, bool: any) {
       let _this = this
       this.utilbasename.addEvent(
         'mousedown',
@@ -400,7 +431,7 @@ export namespace colorpick {
       return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) }
     }
     private rgbToHex(rgb: any) {
-      var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)]
+      let hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)]
       hex.map((str, i) => {
         if (str.length == 1) {
           hex[i] = '0' + str
@@ -413,7 +444,7 @@ export namespace colorpick {
       return {
         r: hex >> 16,
         g: (hex & 0x00ff00) >> 8,
-        b: hex & 0x00ff00
+        b: hex & 0x0000ff
       }
     }
     private hexToHsb(hex: any) {

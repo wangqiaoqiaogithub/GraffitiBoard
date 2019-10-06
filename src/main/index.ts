@@ -64,6 +64,7 @@ export namespace Mainpoint {
     public step: number = -1
     public utilbasename: any = new utilbase.Util()
     public eraserEnabled: boolean = true
+    public colorpicker: any = new colorpick()
     public init(config: GBoardApi) {
       this.userEvent(config)
       this.clearEvent()

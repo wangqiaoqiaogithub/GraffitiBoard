@@ -29,8 +29,6 @@ export interface GBoardApi {
 //以上是主模块的interface
 //这是内置设色器模块的interface
 export interface cpickerApi {
-  bindClass: any
-  initColor: string
-  allMode: aModePattern
+  elem: any
 }
 //以上是内置设色器的interface
