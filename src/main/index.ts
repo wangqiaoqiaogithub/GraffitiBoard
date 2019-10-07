@@ -155,12 +155,17 @@ export namespace Mainpoint {
       this.clearEvent()
     }
     public drawLine(x1: number, y1: number, x2: number, y2: number) {
+      let pen = this.utilbasename.typeof(this.pen)
       this.context.beginPath()
       this.context.moveTo(x1, y1)
       this.context.lineWidth = this.lineWidth
       this.context.lineTo(x2, y2)
       this.context.stroke()
       this.context.closePath()
+      this.colorpicker.create({
+        bindClass: pen,
+        change: function(elem, hex) {}
+      })
     }
     public drawCricle(x: number, y: number, radius: number) {
       this.context.beginPath()

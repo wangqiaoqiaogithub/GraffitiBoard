@@ -5,7 +5,6 @@ export namespace colorpick {
     public bindElem: any
     constructor(cpicker: cpickerApi) {
       this.bindElem = this.utilbasename.typeof(cpicker.elem)
-
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
@@ -106,6 +105,34 @@ export namespace colorpick {
       this.bindMove(this.elem_colorPancel, this.setPosition, true)
       this.bindMove(this.elem_barPicker1.parentNode, this.setBar, false)
       this.bindMove(this.elem_barPicker2.parentNode, this.setBar, false)
+      this.utilbasename.addEvent(this.bindElem, 'click', () => {
+        _this.show()
+      })
+
+      this.utilbasename.addEvent(this.bindElem, 'click', (e: any) => {
+        _this.hide()
+      })
+
+      this.utilbasename.addEvent(
+        this.elem_showModeBtn,
+        'click',
+        () => {
+          _this.switch_current_mode()
+        },
+        false
+      )
+
+      this.utilbasename.addEvent(
+        this.elem_wrap,
+        'input',
+        (e: any) => {
+          let target = e.target,
+            value = target.value
+
+          _this.setColorByInput(value)
+        },
+        false
+      )
     }
     private cprender() {
       var tpl: any =
