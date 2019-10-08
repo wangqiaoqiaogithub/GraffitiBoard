@@ -165,7 +165,7 @@ export namespace Mainpoint {
       this.context.lineTo(x2, y2)
       this.context.stroke()
       this.context.closePath()
-      this.context.storkeStyle = pen.style.backgroundColor
+      this.context.storkeStyle = pen
       this.colorpicker.create({
         bindClass: this.pen,
         change: function(elem: any, hex: any) {
