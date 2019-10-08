@@ -174,10 +174,11 @@ export namespace Mainpoint {
       })
     }
     public drawCricle(x: number, y: number, radius: number) {
+      var pen = this.utilbasename.typeof(this.pen).style.backgroundColor
       this.context.beginPath()
       this.context.arc(x, y, radius, 0, Math.PI * 2)
       this.context.fill()
-      var pen = this.utilbasename.typeof(this.pen).style.backgroundColor
+
       this.context.fillStyle = pen
       this.context.strokeStyle = pen
     }
