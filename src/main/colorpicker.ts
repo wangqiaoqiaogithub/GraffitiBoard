@@ -33,7 +33,8 @@ export namespace colorpick {
     private Opt: any = {
       bindClass: '',
       initColor: 'rgb(255,0,0)',
-      allMode: ['hex', 'rgb']
+      allMode: ['hex', 'rgb'],
+      change: function(elem: any, hex: any) {}
     }
     private rgba: any = {
       r: 0,
