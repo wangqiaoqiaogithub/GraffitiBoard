@@ -3,8 +3,8 @@ import { cpickerApi } from '../types/index'
 export namespace colorpick {
   export class cpicker {
     public bindElem: any
-    constructor(cpicker: cpickerApi) {
-      this.bindElem = this.utilbasename.typeof(cpicker.elem)
+    constructor(name: cpickerApi) {
+      this.bindElem = this.utilbasename.typeof(name.elem)
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
@@ -28,8 +28,8 @@ export namespace colorpick {
     private pointLeft: any = 0
     private pointTop: any = 0
     private current_mode: string = 'hex'
-    private pancel_width: any = this.elem_colorPancel.offsetWidth
-    private pancel_height: any = this.elem_colorPancel.offsetHeight
+    private pancel_width: any
+    private pancel_height: any
     private Opt: any = {
       bindClass: '',
       initColor: 'rgb(255,0,0)',
@@ -75,6 +75,8 @@ export namespace colorpick {
       this.elem_wrap = div
       this.fixedBg = div.children[0]
       this.elem_colorPancel = div.getElementsByClassName('color-pancel')[0]
+      this.pancel_width = this.elem_colorPancel.offsetWidth
+      this.pancel_height = this.elem_colorPancel.offsetHeight
       this.elem_picker = div.getElementsByClassName('pickerBtn')[0]
       this.elem_showColor = div.getElementsByClassName('colorpicker-showColor')[0]
       this.elem_barPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
@@ -106,33 +108,23 @@ export namespace colorpick {
       this.bindMove(this.elem_barPicker1.parentNode, this.setBar, false)
       this.bindMove(this.elem_barPicker2.parentNode, this.setBar, false)
       this.utilbasename.addEvent(this.bindElem, 'click', () => {
-        _this.show()
+        this.show()
       })
 
-      this.utilbasename.addEvent(this.bindElem, 'click', (e: any) => {
-        _this.hide()
+      this.utilbasename.addEvent(this.fixedBg, 'click', (e: any) => {
+        this.hide()
       })
 
-      this.utilbasename.addEvent(
-        this.elem_showModeBtn,
-        'click',
-        () => {
-          _this.switch_current_mode()
-        },
-        false
-      )
+      this.utilbasename.addEvent(this.elem_showModeBtn, 'click', () => {
+        this.switch_current_mode()
+      })
 
-      this.utilbasename.addEvent(
-        this.elem_wrap,
-        'input',
-        (e: any) => {
-          let target = e.target,
-            value = target.value
+      this.utilbasename.addEvent(this.elem_wrap, 'input', (e: any) => {
+        let target = e.target,
+          value = target.value
 
-          _this.setColorByInput(value)
-        },
-        false
-      )
+        this.setColorByInput(value)
+      })
     }
     private cprender() {
       var tpl: any =
@@ -258,13 +250,12 @@ export namespace colorpick {
       }
       return current_mode_html
     }
-    public setPosition(x: any, y: any) {
-      let LEFT: any = parseInt('' + x + -this.pancelLeft),
-        TOP: any = parseInt('' + y + -this.pancelTop)
+    private setPosition(x: any, y: any) {
+      let LEFT: any = parseInt(x + -this.pancelLeft),
+        TOP: any = parseInt(y + -this.pancelTop)
 
       this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
-
       this.utilbasename.css(this.elem_picker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
@@ -376,32 +367,23 @@ export namespace colorpick {
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
     private bindMove(elem: any, fn: any, bool: any) {
-      let _this = this
-      this.utilbasename.addEvent(
-        'mousedown',
-        (e: any) => {
-          this.downX = e.pageX
-          this.downY = e.pageY
-          bool
-            ? fn.call(_this, _this.downX, _this.downY)
-            : fn.call(_this, elem, _this.downX, _this.downY)
-          var mousemove = (e: any): void => {
-            this.moveX = e.pageX
-            this.moveY = e.pageY
-            bool
-              ? fn.call(_this, _this.moveX, _this.moveY)
-              : fn.call(_this, elem, _this.moveX, _this.moveY)
-            e.preventDefault()
-          }
-          this.utilbasename.addEvent(document, 'mousemove', mousemove)
-          var mouseup = (e: any): void => {
-            document.removeEventListener('mousemove', mousemove, false)
-            document.removeEventListener('mouseup', mouseup, false)
-          }
-          this.utilbasename.addEvent(document, 'mouseup', mouseup)
-        },
-        false
-      )
+      this.utilbasename.addEvent(elem, 'mousedown', (e: any) => {
+        this.downX = e.pageX
+        this.downY = e.pageY
+        bool ? fn.call(this, this.downX, this.downY) : fn.call(this, elem, this.downX, this.downY)
+        var mousemove = (e: any): void => {
+          this.moveX = e.pageX
+          this.moveY = e.pageY
+          bool ? fn.call(this, this.moveX, this.moveY) : fn.call(this, elem, this.moveX, this.moveY)
+          e.preventDefault()
+        }
+        this.utilbasename.addEvent(document, 'mousemove', mousemove)
+        var mouseup = (e: any): void => {
+          document.removeEventListener('mousemove', mousemove, false)
+          document.removeEventListener('mouseup', mouseup, false)
+        }
+        this.utilbasename.addEvent(document, 'mouseup', mouseup)
+      })
     }
     private show() {
       this.utilbasename.css(this.elem_wrap, {
