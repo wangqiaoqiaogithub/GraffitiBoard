@@ -1,5 +1,6 @@
 import { utilbase } from '../base/index'
 import { GBoardApi } from '../types/index'
+import { colorpick } from '../main/colorpicker'
 export namespace Mainpoint {
   export class mainMethods {
     name: string
@@ -58,11 +59,15 @@ export namespace Mainpoint {
       this.undoAttr.elementname = config.undoAttr.elementname
       this.redoAttr.naturename = config.redoAttr.naturename
       this.redoAttr.elementname = config.redoAttr.elementname
+      this.colorpicker = new colorpick.cpicker({
+        elem: '#pencli'
+      })
     }
     public canvasHistory: any = []
     public step: number = -1
     public utilbasename: any = new utilbase.Util()
     public eraserEnabled: boolean = true
+    private colorpicker: any
     public init(config: GBoardApi) {
       this.userEvent(config)
       this.clearEvent()
@@ -153,17 +158,29 @@ export namespace Mainpoint {
       this.clearEvent()
     }
     public drawLine(x1: number, y1: number, x2: number, y2: number) {
+      let pen = this.utilbasename.typeof(this.pen).style.backgroundColor
       this.context.beginPath()
       this.context.moveTo(x1, y1)
       this.context.lineWidth = this.lineWidth
       this.context.lineTo(x2, y2)
       this.context.stroke()
       this.context.closePath()
+      this.context.storkeStyle = pen.style.backgroundColor
+      this.colorpicker.create({
+        bindClass: this.pen,
+        change: function(elem: any, hex: any) {
+          elem.style.backgroundColor = hex
+        }
+      })
     }
     public drawCricle(x: number, y: number, radius: number) {
+      var pen = this.utilbasename.typeof(this.pen).style.backgroundColor
       this.context.beginPath()
       this.context.arc(x, y, radius, 0, Math.PI * 2)
       this.context.fill()
+
+      this.context.fillStyle = pen
+      this.context.strokeStyle = pen
     }
     public listentoUser(config: GBoardApi): void {
       let using: boolean = false
