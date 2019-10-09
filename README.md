@@ -3,7 +3,7 @@
     <img width="180" height="180" src="GBlogo.jpg">
   </p>
   <h2 align="center">GraffitiBoard</h2>
-  <p align="center">:art: 这是一个涂鸦画板工具（基于typescript+Html5）</p>
+  <p align="center">:art: 这是一个涂鸦画板工具组（基于typescript+Html5）</p>
   <a href="https://github.com/wangqiaoqiaogithub/GraffitiBoard/blob/master/LICENSE">
     <img alt="GitHub" src="https://img.shields.io/github/license/wangqiaoqiaogithub/GraffitiBoard.svg?color=%64d47c&style=flat-square">
   <a>
