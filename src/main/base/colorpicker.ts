@@ -248,6 +248,7 @@ export namespace colorpick {
               '</div>' +
               '</div>'
           }
+          break
         default:
       }
       return currentModeHtml
