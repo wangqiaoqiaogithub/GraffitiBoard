@@ -1,6 +1,6 @@
 import { utilbase } from '../base/index'
 import { GBoardApi } from '../types/index'
-import { colorpick } from '../main/colorpicker'
+import { colorpick } from '../main/base/colorpicker'
 export namespace Mainpoint {
   // tslint:disable-next-line:class-name
   export class mainMethods {

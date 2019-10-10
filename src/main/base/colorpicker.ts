@@ -73,19 +73,19 @@ export namespace colorpick {
       div.innerHTML = this.cprender()
       body.appendChild(div)
 
-      this.elem_wrap = div
+      this.elemWrap = div
       this.fixedBg = div.children[0]
-      this.elem_colorPancel = div.getElementsByClassName('color-pancel')[0]
-      this.pancel_width = this.elem_colorPancel.offsetWidth
-      this.pancel_height = this.elem_colorPancel.offsetHeight
-      this.elem_picker = div.getElementsByClassName('pickerBtn')[0]
-      this.elem_showColor = div.getElementsByClassName('colorpicker-showColor')[0]
-      this.elem_barPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
-      this.elem_barPicker2 = div.getElementsByClassName('colorBar-opacity-picker')[0]
-      this.elem_hexInput = div.getElementsByClassName('colorpicker-hexInput')[0]
-      this.elem_showModeBtn = div.getElementsByClassName('colorpicker-showModeBtn')[0]
-      this.elem_inputWrap = div.getElementsByClassName('colorpicker-inputWrap')[0]
-      this.elem_opacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
+      this.elemColorPancel = div.getElementsByClassName('color-pancel')[0]
+      this.pancelWidth = this.elem_colorPancel.offsetWidth
+      this.pancelHeight = this.elem_colorPancel.offsetHeight
+      this.elemPicker = div.getElementsByClassName('pickerBtn')[0]
+      this.elemShowColor = div.getElementsByClassName('colorpicker-showColor')[0]
+      this.elemBarPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
+      this.elemBarPicker2 = div.getElementsByClassName('colorBar-opacity-picker')[0]
+      this.elemHexInput = div.getElementsByClassName('colorpicker-hexInput')[0]
+      this.elemShowModeBtn = div.getElementsByClassName('colorpicker-showModeBtn')[0]
+      this.elemInputWrap = div.getElementsByClassName('colorpicker-inputWrap')[0]
+      this.elemOpacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
       let elem: any = this.bindElem
       let top: any = elem.offsetTop
       let left: any = elem.offsetLeft
@@ -105,9 +105,9 @@ export namespace colorpick {
         top: top + this.bindElem.offsetHeight + 'px'
       })
 
-      this.bindMove(this.elem_colorPancel, this.setPosition, true)
-      this.bindMove(this.elem_barPicker1.parentNode, this.setBar, false)
-      this.bindMove(this.elem_barPicker2.parentNode, this.setBar, false)
+      this.bindMove(this.elemColorPancel, this.setPosition, true)
+      this.bindMove(this.elemBarPicker1.parentNode, this.setBar, false)
+      this.bindMove(this.elemBarPicker2.parentNode, this.setBar, false)
       this.utilbasename.addEvent(this.bindElem, 'click', () => {
         this.show()
       })
@@ -116,11 +116,11 @@ export namespace colorpick {
         this.hide()
       })
 
-      this.utilbasename.addEvent(this.elem_showModeBtn, 'click', () => {
+      this.utilbasename.addEvent(this.elemShowModeBtn, 'click', () => {
         this.switch_current_mode()
       })
 
-      this.utilbasename.addEvent(this.elem_wrap, 'input', (e: any) => {
+      this.utilbasename.addEvent(this.elemWrap, 'input', (e: any) => {
         // tslint:disable-next-line:one-variable-per-declaration
         let target = e.target,
           value = target.value
@@ -220,11 +220,11 @@ export namespace colorpick {
       return tpl
     }
     private getInputTpl() {
-      let current_mode_html: string = ''
-      switch (this.current_mode) {
+      let currentModeHtml: string = ''
+      switch (this.currentMode) {
         case 'hex':
           let hex: any = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
-          current_mode_html +=
+          currentModeHtml +=
             '<div style="padding-left: 6px; width: 100%;">' +
             '<div style="position: relative;">' +
             '<input class="colorpicker-hexInput" value="' +
@@ -236,7 +236,7 @@ export namespace colorpick {
           break
         case 'rgb':
           for (let i = 0; i < 3; i++) {
-            current_mode_html +=
+            currentModeHtml +=
               '<div style="padding-left: 6px; width: 100%;">' +
               '<div style="position: relative;">' +
               '<input class="colorpicker-hexInput" value="' +
@@ -250,7 +250,7 @@ export namespace colorpick {
           }
         default
       }
-      return current_mode_html
+      return currentModeHtml
     }
     private setPosition(x: any, y: any) {
       let LEFT: any = parseInt(x + -this.pancelLeft)
@@ -258,7 +258,7 @@ export namespace colorpick {
 
       this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
-      this.utilbasename.css(this.elem_picker, {
+      this.utilbasename.css(this.elemPicker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
       })
@@ -275,15 +275,15 @@ export namespace colorpick {
       let  X: any = Math.max(0, Math.min(x - rect.x, elem_width))
 
       if (elemBar === this.elemBarPicker1) {
-        this.utilbasename.css(elem_bar, {
+        this.utilbasename.css(elemBar, {
           left: X + 'px'
         })
         this.hsb.h = parseInt('' + (360 * X) / elemWidth)
       } else {
-        this.utilbasename.css(elem_bar, {
+        this.utilbasename.css(elemBar, {
           left: X + 'px'
         })
-        this.rgba.a = X / elem_width
+        this.rgba.a = X / elemWidth
       }
 
       this.setPancelColor(this.hsb.h)
@@ -292,7 +292,7 @@ export namespace colorpick {
     }
     private setPancelColor(h: number) {
       let rgb: any = this.HSBToRGB({ h: h, s: 100, b: 100 })
-      this.utilbasename.css(this.elem_colorPancel, {
+      this.utilbasename.css(this.elemColorPancel, {
         background: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + this.rgba.a + ')'
       })
     }
@@ -301,10 +301,10 @@ export namespace colorpick {
       this.rgba.r = rgb.r
       this.rgba.g = rgb.g
       this.rgba.b = rgb.b
-      this.utilbasename.css(this.elem_showColor, {
+      this.utilbasename.css(this.elemShowColor, {
         background: 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + this.rgba.a + ')'
       })
-      this.utilbasename.css(this.elem_opacityPancel, {
+      this.utilbasename.css(this.elemOpacityPancel, {
         background:
           'linear-gradient(to right, rgba(' +
           rgb.r +
@@ -354,20 +354,20 @@ export namespace colorpick {
       let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
       this.pointLeft = parseInt('' + (this.hsb.s * this.pancel_width) / 100)
       this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancel_height) / 100)
-      this.utilbasename.css(this.elem_picker, {
+      this.utilbasename.css(this.elemPicker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
       })
 
       this.setPancelColor(this.hsb.h)
       this.setShowColor()
-      this.utilbasename.css(this.elem_barPicker1, {
-        left: (this.hsb.h / 360) * this.elem_barPicker1.parentNode.offsetWidth + 'px'
+      this.utilbasename.css(this.elemBarPicker1, {
+        left: (this.hsb.h / 360) * this.elemBarPicker1.parentNode.offsetWidth + 'px'
       })
     }
     private switch_current_mode() {
-      this.current_mode = this.current_mode === 'hex' ? 'rgb' : 'hex'
-      this.elem_inputWrap.innerHTML = this.getInputTpl()
+      this.currentMode = this.current_mode === 'hex' ? 'rgb' : 'hex'
+      this.elemInputWrap.innerHTML = this.getInputTpl()
     }
     private bindMove(elem: any, fn: any, bool: any) {
       this.utilbasename.addEvent(elem, 'mousedown', (e: any) => {
@@ -389,12 +389,12 @@ export namespace colorpick {
       })
     }
     private show() {
-      this.utilbasename.css(this.elem_wrap, {
+      this.utilbasename.css(this.elemWrap, {
         display: 'block'
       })
     }
     private hide() {
-      this.utilbasename.css(this.elem_wrap, {
+      this.utilbasename.css(this.elemWrap, {
         display: 'none'
       })
     }
