@@ -66,9 +66,9 @@ export namespace colorpick {
       let body: any = document.getElementsByTagName('body')[0]
       let  div: any = document.createElement('div')
 
-      this.rgba.r = parseInt(rgb[0])
-      this.rgba.g = parseInt(rgb[1])
-      this.rgba.b = parseInt(rgb[2])
+      this.rgba.r = parseInt(rgb[0],0)
+      this.rgba.g = parseInt(rgb[1],0)
+      this.rgba.b = parseInt(rgb[2],0)
 
       div.innerHTML = this.cprender()
       body.appendChild(div)
@@ -248,13 +248,13 @@ export namespace colorpick {
               '</div>' +
               '</div>'
           }
-        default
+        default:
       }
       return currentModeHtml
     }
     private setPosition(x: any, y: any) {
-      let LEFT: any = parseInt(x + -this.pancelLeft)
-      let TOP: any = parseInt(y + -this.pancelTop)
+      let LEFT: any = parseInt(x + -this.pancelLeft,0)
+      let TOP: any = parseInt(y + -this.pancelTop,0)
 
       this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
@@ -262,8 +262,8 @@ export namespace colorpick {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
       })
-      this.hsb.s = parseInt('' + (100 * this.pointLeft) / this.pancel_width)
-      this.hsb.b = parseInt('' + (100 * (this.pancel_height - this.pointTop)) / this.pancel_height)
+      this.hsb.s = parseInt('' + (100 * this.pointLeft) / this.pancel_width,0)
+      this.hsb.b = parseInt('' + (100 * (this.pancel_height - this.pointTop)) / this.pancel_height,0)
 
       this.setShowColor()
       this.setValue(this.rgba)
@@ -278,7 +278,7 @@ export namespace colorpick {
         this.utilbasename.css(elemBar, {
           left: X + 'px'
         })
-        this.hsb.h = parseInt('' + (360 * X) / elemWidth)
+        this.hsb.h = parseInt('' + (360 * X) / elemWidth,0)
       } else {
         this.utilbasename.css(elemBar, {
           left: X + 'px'
@@ -341,9 +341,9 @@ export namespace colorpick {
           // tslint:disable-next-line:one-variable-per-declaration
           let inputs: any = this.elem_wrap.getElementsByTagName('input'),
             rgb: any = {
-              r: inputs[0].value ? parseInt(inputs[0].value) : 0,
-              g: inputs[1].value ? parseInt(inputs[1].value) : 0,
-              b: inputs[2].value ? parseInt(inputs[2].value) : 0
+              r: inputs[0].value ? parseInt(inputs[0].value,0) : 0,
+              g: inputs[1].value ? parseInt(inputs[1].value,0) : 0,
+              b: inputs[2].value ? parseInt(inputs[2].value,0) : 0
             }
 
           this.hsb = this.rgbToHsb(rgb)
@@ -352,8 +352,8 @@ export namespace colorpick {
     }
     private changeViewByHsb() {
       let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
-      this.pointLeft = parseInt('' + (this.hsb.s * this.pancel_width) / 100)
-      this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancel_height) / 100)
+      this.pointLeft = parseInt('' + (this.hsb.s * this.pancel_width) / 100,0)
+      this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancel_height) / 100,0)
       this.utilbasename.css(this.elemPicker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
