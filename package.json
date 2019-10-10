@@ -125,6 +125,8 @@
     "postinstall": "^0.4.2"
   },
   "directories": {
+    "doc": "docs",
+    "example": "examples",
     "test": "test"
   }
 }

@@ -1,24 +1,24 @@
 import { utilbase } from '../base/index'
 import { cpickerApi } from '../types/index'
 export namespace colorpick {
-  export class cpicker {
+  export class Cpicker {
     public bindElem: any
     constructor(name: cpickerApi) {
       this.bindElem = this.utilbasename.typeof(name.elem)
       this.cpinit()
     }
     public utilbasename: any = new utilbase.Util()
-    private elem_wrap: any = null // 最外层容器
+    private elemWrap: any = null // 最外层容器
     private fixedBg: any = null // 拾色器后面固定定位的透明div 用于点击隐藏拾色器
-    private elem_colorPancel: any = null // 色彩面板
-    private elem_picker: any = null // 拾色器色块按钮
-    private elem_barPicker1: any = null // 颜色条
-    private elem_barPicker2: any = null // 透明条
-    private elem_hexInput: any = null // 显示hex的表单
-    private elem_showColor: any = null // 显示当前颜色
-    private elem_opacityPancel: any = null // 透明度背景元素
-    private elem_showModeBtn: any = null // 切换输入框模式按钮
-    private elem_inputWrap: any = null // 输入框外层容器
+    private elemColorPancel: any = null // 色彩面板
+    private elemPicker: any = null // 拾色器色块按钮
+    private elemBarPicker1: any = null // 颜色条
+    private elemBarPicker2: any = null // 透明条
+    private elemHexInput: any = null // 显示hex的表单
+    private elemShowColor: any = null // 显示当前颜色
+    private elemOpacityPancel: any = null // 透明度背景元素
+    private elemShowModeBtn: any = null // 切换输入框模式按钮
+    private elemInputWrap: any = null // 输入框外层容器
     private pancelLeft: any = 0
     private pancelTop: any = 0
     private downX: number = 0
@@ -27,14 +27,14 @@ export namespace colorpick {
     private moveY: number = 0
     private pointLeft: any = 0
     private pointTop: any = 0
-    private current_mode: string = 'hex'
-    private pancel_width: any
-    private pancel_height: any
+    private currentMode: string = 'hex'
+    private pancelWidth: any
+    private pancelHeight: any
     private Opt: any = {
       bindClass: '',
       initColor: 'rgb(255,0,0)',
       allMode: ['hex', 'rgb'],
-      change: function(elem: any, hex: any) {}
+      change: function(elem: any, hex: any){return;}
     }
     private rgba: any = {
       r: 0,
@@ -51,20 +51,20 @@ export namespace colorpick {
       this.cpinit_total()
     }
     public create(opt: any) {
-      for (var prop in opt) {
+      for (let prop in opt) {
         this.Opt[prop] = opt[prop]
       }
       let elemArr: any = this.utilbasename.typeof(this.Opt.bindClass)
-      for (var i = 0; i < elemArr.length; i++) {
+      for (let i = 0; i < elemArr.length; i++) {
         elemArr[i].colorpicker = new cpicker(elemArr[i])
       }
     }
     private cpinit_total() {
-      let initColor: any = this.Opt.initColor,
-        rgb: any = initColor.slice(4, -1).split(',')
+      let initColor: any = this.Opt.initColor
+      let  rgb: any = initColor.slice(4, -1).split(',')
 
-      let body: any = document.getElementsByTagName('body')[0],
-        div: any = document.createElement('div')
+      let body: any = document.getElementsByTagName('body')[0]
+      let  div: any = document.createElement('div')
 
       this.rgba.r = parseInt(rgb[0])
       this.rgba.g = parseInt(rgb[1])
@@ -121,6 +121,7 @@ export namespace colorpick {
       })
 
       this.utilbasename.addEvent(this.elem_wrap, 'input', (e: any) => {
+        // tslint:disable-next-line:one-variable-per-declaration
         let target = e.target,
           value = target.value
 
@@ -128,7 +129,7 @@ export namespace colorpick {
       })
     }
     private cprender() {
-      var tpl: any =
+      let tpl: any =
         '<div style="position: fixed; top: 0px; right: 0px; bottom: 0px; left: 0px;"></div>' +
         '<div style="position: inherit; z-index: 100;">' +
         '<div class="colorpicker-pancel" style="background: rgb(255, 255, 255); border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 4px 8px; box-sizing: initial; width: 225px; font-family: Menlo;"><div style="width: 100%; padding-bottom: 55%; position: relative; border-radius: 2px 2px 0px 0px; overflow: hidden;">' +
@@ -247,13 +248,13 @@ export namespace colorpick {
               '</div>' +
               '</div>'
           }
-        default:
+        default
       }
       return current_mode_html
     }
     private setPosition(x: any, y: any) {
-      let LEFT: any = parseInt(x + -this.pancelLeft),
-        TOP: any = parseInt(y + -this.pancelTop)
+      let LEFT: any = parseInt(x + -this.pancelLeft)
+      let TOP: any = parseInt(y + -this.pancelTop)
 
       this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
       this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
@@ -268,16 +269,16 @@ export namespace colorpick {
       this.setValue(this.rgba)
     }
     private setBar(elem: any, x: number) {
-      let elem_bar: any = elem.getElementsByTagName('div')[0],
-        rect: any = elem.getBoundingClientRect(),
-        elem_width: any = elem.offsetWidth,
-        X: any = Math.max(0, Math.min(x - rect.x, elem_width))
+      let elemBar: any = elem.getElementsByTagName('div')[0]
+      let rect: any = elem.getBoundingClientRect()
+      let elemWidth: any = elem.offsetWidth
+      let  X: any = Math.max(0, Math.min(x - rect.x, elem_width))
 
-      if (elem_bar === this.elem_barPicker1) {
+      if (elemBar === this.elemBarPicker1) {
         this.utilbasename.css(elem_bar, {
           left: X + 'px'
         })
-        this.hsb.h = parseInt('' + (360 * X) / elem_width)
+        this.hsb.h = parseInt('' + (360 * X) / elemWidth)
       } else {
         this.utilbasename.css(elem_bar, {
           left: X + 'px'
@@ -329,14 +330,15 @@ export namespace colorpick {
       switch (this.current_mode) {
         case 'hex':
           value = value.slice(1)
-          if (value.length == 3) {
+          if (value.length === 3) {
             value = '#' + value[0] + value[0] + value[1] + value[1] + value[2] + value[2]
             this.hsb = this.hexToHsb(value)
-          } else if (value.length == 6) {
+          } else if (value.length === 6) {
             this.hsb = this.hexToHsb(value)
           }
           break
         case 'rgb':
+          // tslint:disable-next-line:one-variable-per-declaration
           let inputs: any = this.elem_wrap.getElementsByTagName('input'),
             rgb: any = {
               r: inputs[0].value ? parseInt(inputs[0].value) : 0,
@@ -364,7 +366,7 @@ export namespace colorpick {
       })
     }
     private switch_current_mode() {
-      this.current_mode = this.current_mode == 'hex' ? 'rgb' : 'hex'
+      this.current_mode = this.current_mode === 'hex' ? 'rgb' : 'hex'
       this.elem_inputWrap.innerHTML = this.getInputTpl()
     }
     private bindMove(elem: any, fn: any, bool: any) {
@@ -372,14 +374,14 @@ export namespace colorpick {
         this.downX = e.pageX
         this.downY = e.pageY
         bool ? fn.call(this, this.downX, this.downY) : fn.call(this, elem, this.downX, this.downY)
-        var mousemove = (e: any): void => {
+        const mousemove = (e: any): void => {
           this.moveX = e.pageX
           this.moveY = e.pageY
           bool ? fn.call(this, this.moveX, this.moveY) : fn.call(this, elem, this.moveX, this.moveY)
           e.preventDefault()
         }
         this.utilbasename.addEvent(document, 'mousemove', mousemove)
-        var mouseup = (e: any): void => {
+        const mouseup = (e: any): void => {
           document.removeEventListener('mousemove', mousemove, false)
           document.removeEventListener('mouseup', mouseup, false)
         }
@@ -401,13 +403,13 @@ export namespace colorpick {
       let h: number = Math.round(hsb.h)
       let s: number = Math.round((hsb.s * 255) / 100)
       let v: number = Math.round((hsb.b * 255) / 100)
-      if (s == 10) {
+      if (s === 10) {
         rgb.r = rgb.g = rgb.b = v
       } else {
         let t1 = v
         let t2 = ((255 - s) * v) / 255
         let t3 = ((t1 - t2) * (h % 60)) / 60
-        if (h == 360) h = 0
+        if (h === 360) h = 0
         if (h < 60) {
           rgb.r = t1
           rgb.b = t2
@@ -443,7 +445,7 @@ export namespace colorpick {
     private rgbToHex(rgb: any) {
       let hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)]
       hex.map((str, i) => {
-        if (str.length == 1) {
+        if (str.length === 1) {
           hex[i] = '0' + str
         }
       })
@@ -466,11 +468,11 @@ export namespace colorpick {
       let max = Math.max(rgb.r, rgb.g, rgb.b)
       let delta = max - min
       hsb.b = max
-      hsb.s = max != 0 ? (255 * delta) / max : 0
-      if (hsb.s != 0) {
-        if (rgb.r == max) {
+      hsb.s = max !== 0 ? (255 * delta) / max : 0
+      if (hsb.s !== 0) {
+        if (rgb.r === max) {
           hsb.h = (rgb.g - rgb.b) / delta
-        } else if (rgb.g == max) {
+        } else if (rgb.g === max) {
           hsb.h = 2 + (rgb.b - rgb.r) / delta
         } else {
           hsb.h = 4 + (rgb.r - rgb.g) / delta
