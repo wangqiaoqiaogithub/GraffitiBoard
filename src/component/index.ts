@@ -20,9 +20,11 @@ namespace Commponent {
                     +title+
                 '</h2>'+
                 '<div class="notice" style="">'+
-                    '<p class="">'+
+                    '<p class="font-size: 14px;line-height: 21px;margin: 6px 0 0;color: #606266;">'+
                         +content+
                     '</p>'+
+                    '<div class="position: absolute;top: 18px;right: 15px;cursor: pointer;color: #909399;">'+
+                    '</div>'+
                 '</div>'+
             '</div>'+
                 return tpl
