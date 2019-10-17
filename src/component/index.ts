@@ -8,7 +8,7 @@ namespace Commponent {
         this.noticeWrap = null
         this.noticeBtn =null
         return function(viewui: any){
-            viewui.prototype.init= function(){
+            viewui.prototype.vuinit= function(){
                 let div:any = doucment.createElement('div')
                 let body:any = document.getElementsByTagName('body')[0]
                 this.notcieWrap = div.getElementsByClassName('notification')[0]
@@ -21,20 +21,20 @@ namespace Commponent {
                 })
             }
             viewui.prototype.vuNotice=function(title:any,content: any){
-                let title = title
-                let content = content
-                let tpl  =  
-                `<div class="notification" style="positon: absolute; top: 0;z-index: 1000;padding: 14px 26px 14px 13px">'+
-                    '<h2 class="notice_title" style="font-size: 16px; color: #303133;">'+
+                let title:any = title
+                let content:any = content
+                let tpl:any  =  
+                `<div class="notification" style="positon: absolute; top: 0;z-index: 1000;padding: 14px 26px 14px 13px">'
+                    '<h2 class="notice_title" style="font-size: 16px; color: #303133;">'
                         ${title}
-                    '</h2>'+
-                    '<div class="notice" style="font-size: 14px;line-height: 21px;margin: 6px 0 0;color: #606266;">'+
+                    '</h2>'
+                    '<div class="notice" style="font-size: 14px;line-height: 21px;margin: 6px 0 0;color: #606266;">'
                         '<p class="margin: 0;">'+
                             ${content}
-                        '</p>'+
-                        '<div class="noticeBtn" style="position: absolute;top: 18px;right: 15px;cursor: pointer;color: #909399;">'+
-                        '</div>'+
-                    '</div>'+
+                        '</p>'
+                        '<div class="noticeBtn" style="position: absolute;top: 18px;right: 15px;cursor: pointer;color: #909399;">'
+                        '</div>'
+                    '</div>'
                 '</div>`
                 return tpl
             }

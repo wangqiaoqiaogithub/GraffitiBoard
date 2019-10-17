@@ -1,6 +1,7 @@
 import { utilbase } from '../base/index'
 import { GBoardApi } from '../types/index'
 import { colorpick } from '../main/base/colorpicker'
+import { Component } from '../component'
 export namespace Mainpoint {
   export class MainMethods {
     name: string
@@ -66,6 +67,7 @@ export namespace Mainpoint {
     public canvasHistory: any = []
     public step: number = -1
     public utilbasename: any = new utilbase.Util()
+    // public component:any = new Component.ViewUi()
     public eraserEnabled: boolean = true
     private colorpicker: any
     public init(config: GBoardApi) {
