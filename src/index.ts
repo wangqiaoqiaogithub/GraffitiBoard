@@ -1,5 +1,6 @@
 import GBoard from './GBoard'
-export * from './base'
+export * from './main'
+export * from './baseMethod'
 export * from './types'
 export default GBoard
 /**
