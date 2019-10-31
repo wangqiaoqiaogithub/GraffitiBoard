@@ -14,7 +14,7 @@ namespace Commponent {
             let body:any = document.getElementsByTagName('body')[0]
             this.notcieWrap = div.getElementsByClassName('notification')[0]
             this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
-            let vuNotice:any = this.vuNotice(this.title,this.any)
+            let vuNotice:any = this.vuNotice(this.noticeTitle,this.any)
             style.innerHTML = this.noticeStyle()
             div.innerHTML = vuNotice
             head.appendChild(style)
