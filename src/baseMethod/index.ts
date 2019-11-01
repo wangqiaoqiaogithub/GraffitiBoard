@@ -12,7 +12,7 @@ export namespace utilbase {
     public addEvent(element: any, type: string, fn: any) {
       if ((document as any).addEventListener) {
         element.addEventListener(type, fn, false)
-        return elements
+        return element
       } else if ((document as any).attachEvent) {
         let bound: any = function() {
           return fn.apply(element, arguments) // 不能使用箭头函数表达式(特性)

@@ -1,7 +1,7 @@
-import { utilbase } from '../base/index'
+import { utilbase } from '../baseMethod/index'
 import { GBoardApi } from '../types/index'
 import { colorpick } from '../main/base/colorpicker'
-import { Component } from '../component'
+// import { Component } from '../component'
 export namespace Mainpoint {
   export class MainMethods {
     name: string

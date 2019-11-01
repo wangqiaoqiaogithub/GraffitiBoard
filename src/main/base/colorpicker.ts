@@ -1,5 +1,5 @@
-import { utilbase } from '../base/index'
-import { cpickerApi } from '../types/index'
+import { utilbase } from '../../baseMethod/index'
+import { cpickerApi } from '../../types/index'
 export namespace colorpick {
   export class Cpicker {
     public bindElem: any
@@ -56,7 +56,7 @@ export namespace colorpick {
       }
       let elemArr: any = this.utilbasename.typeof(this.Opt.bindClass)
       for (let i = 0; i < elemArr.length; i++) {
-        elemArr[i].colorpicker = new cpicker(elemArr[i])
+        elemArr[i].colorpicker = new Cpicker(elemArr[i])
       }
     }
     private cpinit_total() {
@@ -76,8 +76,8 @@ export namespace colorpick {
       this.elemWrap = div
       this.fixedBg = div.children[0]
       this.elemColorPancel = div.getElementsByClassName('color-pancel')[0]
-      this.pancelWidth = this.elem_colorPancel.offsetWidth
-      this.pancelHeight = this.elem_colorPancel.offsetHeight
+      this.pancelWidth = this.elemColorPancel.offsetWidth
+      this.pancelHeight = this.elemColorPancel.offsetHeight
       this.elemPicker = div.getElementsByClassName('pickerBtn')[0]
       this.elemShowColor = div.getElementsByClassName('colorpicker-showColor')[0]
       this.elemBarPicker1 = div.getElementsByClassName('colorBar-color-picker')[0]
@@ -85,7 +85,7 @@ export namespace colorpick {
       this.elemHexInput = div.getElementsByClassName('colorpicker-hexInput')[0]
       this.elemShowModeBtn = div.getElementsByClassName('colorpicker-showModeBtn')[0]
       this.elemInputWrap = div.getElementsByClassName('colorpicker-inputWrap')[0]
-      this.elemOpacityPancel = this.elem_barPicker2.parentNode.parentNode.children[1]
+      this.elemOpacityPancel = this.elemBarPicker2.parentNode.parentNode.children[1]
       let elem: any = this.bindElem
       let top: any = elem.offsetTop
       let left: any = elem.offsetLeft
@@ -257,14 +257,14 @@ export namespace colorpick {
       let LEFT: any = parseInt(x + -this.pancelLeft,0)
       let TOP: any = parseInt(y + -this.pancelTop,0)
 
-      this.pointLeft = Math.max(0, Math.min(LEFT, this.pancel_width))
-      this.pointTop = Math.max(0, Math.min(TOP, this.pancel_height))
+      this.pointLeft = Math.max(0, Math.min(LEFT, this.pancelWidth))
+      this.pointTop = Math.max(0, Math.min(TOP, this.pancelHeight))
       this.utilbasename.css(this.elemPicker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
       })
-      this.hsb.s = parseInt('' + (100 * this.pointLeft) / this.pancel_width,0)
-      this.hsb.b = parseInt('' + (100 * (this.pancel_height - this.pointTop)) / this.pancel_height,0)
+      this.hsb.s = parseInt('' + (100 * this.pointLeft) / this.pancelWidth,0)
+      this.hsb.b = parseInt('' + (100 * (this.pancelHeight - this.pointTop)) / this.pancelHeight,0)
 
       this.setShowColor()
       this.setValue(this.rgba)
@@ -273,7 +273,7 @@ export namespace colorpick {
       let elemBar: any = elem.getElementsByTagName('div')[0]
       let rect: any = elem.getBoundingClientRect()
       let elemWidth: any = elem.offsetWidth
-      let  X: any = Math.max(0, Math.min(x - rect.x, elem_width))
+      let  X: any = Math.max(0, Math.min(x - rect.x, elemWidth))
 
       if (elemBar === this.elemBarPicker1) {
         this.utilbasename.css(elemBar, {
@@ -324,11 +324,11 @@ export namespace colorpick {
     }
     private setValue(rgb: any) {
       let hex: string = '#' + this.rgbToHex(rgb)
-      this.elem_inputWrap.innerHTML = this.getInputTpl()
+      this.elemInputWrap.innerHTML = this.getInputTpl()
       this.Opt.change(this.bindElem, hex)
     }
     private setColorByInput(value: any) {
-      switch (this.current_mode) {
+      switch (this.currentMode) {
         case 'hex':
           value = value.slice(1)
           if (value.length === 3) {
@@ -340,7 +340,7 @@ export namespace colorpick {
           break
         case 'rgb':
           // tslint:disable-next-line:one-variable-per-declaration
-          let inputs: any = this.elem_wrap.getElementsByTagName('input'),
+          let inputs: any = this.elemWrap.getElementsByTagName('input'),
             rgb: any = {
               r: inputs[0].value ? parseInt(inputs[0].value,0) : 0,
               g: inputs[1].value ? parseInt(inputs[1].value,0) : 0,
@@ -353,8 +353,8 @@ export namespace colorpick {
     }
     private changeViewByHsb() {
       let hex = '#' + this.rgbToHex(this.HSBToRGB(this.hsb))
-      this.pointLeft = parseInt('' + (this.hsb.s * this.pancel_width) / 100,0)
-      this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancel_height) / 100,0)
+      this.pointLeft = parseInt('' + (this.hsb.s * this.pancelWidth) / 100,0)
+      this.pointTop = parseInt('' + ((100 - this.hsb.b) * this.pancelHeight) / 100,0)
       this.utilbasename.css(this.elemPicker, {
         left: this.pointLeft + 'px',
         top: this.pointTop + 'px'
@@ -367,7 +367,7 @@ export namespace colorpick {
       })
     }
     private switch_current_mode() {
-      this.currentMode = this.current_mode === 'hex' ? 'rgb' : 'hex'
+      this.currentMode = this.currentMode === 'hex' ? 'rgb' : 'hex'
       this.elemInputWrap.innerHTML = this.getInputTpl()
     }
     private bindMove(elem: any, fn: any, bool: any) {
