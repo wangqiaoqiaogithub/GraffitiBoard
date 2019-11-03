@@ -4,9 +4,10 @@ namespace Commponent {
     // 类装饰器可传参
     export function addExtend(params:any){
         let utilbasename: any = new utilbase.Util()
-        params.prototype.noticeTitle = null
         params.prototype.noticeWrap = null
         params.prototype.noticeBtn =null
+        params.prototype.noticeTitle = undefined
+        params.prototype.noticecontent = undefined
         params.prototype.vuinit = function(){
             let div:any = document.createElement('div')
             let style:any = document.createElement('style')
@@ -14,7 +15,7 @@ namespace Commponent {
             let body:any = document.getElementsByTagName('body')[0]
             this.notcieWrap = div.getElementsByClassName('notification')[0]
             this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
-            let vuNotice:any = this.vuNotice(this.noticeTitle,this.any)
+            let vuNotice:any = this.vuNotice(this.noticeTitle,this.noticecontent)
             style.innerHTML = this.noticeStyle()
             div.innerHTML = vuNotice
             head.appendChild(style)
