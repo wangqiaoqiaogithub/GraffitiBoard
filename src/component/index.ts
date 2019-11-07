@@ -97,9 +97,6 @@ export namespace Component {
       return nstyle
     }
     params.prototype.vhide = function() {
-      // utilbasename.css(this.noticeWrap,{
-      //     display: 'none'
-      // })
       this.fadeOut(document.getElementsByClassName('notification')[0], 200, 10)
     }
     params.prototype.fadeOut = function(elem: any, speed: any, opacity: any) {
