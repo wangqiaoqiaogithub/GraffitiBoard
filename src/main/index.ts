@@ -65,10 +65,10 @@ export namespace Mainpoint {
         elem: '#pencli'
       })
     }
-    public canvasHistory: any = []
-    public step: number = -1
-    public utilbasename: any = new utilbase.Util()
-    public component:any = new Component.ViewUi()
+    public canvasHistory: any = [] // 储存画笔历史
+    public step: number = -1 // 当前进行的步骤
+    public utilbasename: any = new utilbase.Util() // 引用基础类并实例化
+    public component: any = new Component.ViewUi() // 引用组件类并实例化
     public eraserEnabled: boolean = true
     private colorpicker: any
     public init(config: GBoardApi) {
@@ -79,7 +79,7 @@ export namespace Mainpoint {
       this.downloadEvent(config)
       this.cancel()
       this.canvasRedo()
-      Shape.shapesquare(this.context)
+      // Shape.shapesquare(this.context)
     }
     private eraserEvent() {
       let eraser = this.utilbasename.typeof(this.eraser)
@@ -304,7 +304,7 @@ export namespace Mainpoint {
           this.utilbasename.addAttr(redo, redonaturename, redoelementname)
         } else {
           this.utilbasename.removeAttr(undo, undonaturename, undoelementname)
-          this.component.vuinit('通知','不能再撤销了')
+          this.component.vuinit('通知', '不能再撤销了')
           // console.log('不能在撤销了')
         }
       })
@@ -325,7 +325,7 @@ export namespace Mainpoint {
         }
       } else {
         this.utilbasename.removeAttr(redo, redonaturename, redoelementname)
-        this.component.vuinit('通知','已经是最新记录了')
+        this.component.vuinit('通知', '已经是最新记录了')
         // console.log('已经是最新记录了')
       }
     }
