@@ -42,8 +42,11 @@ export namespace utilbase {
       }
     }
     // 设置元素透明度,透明度值按IE规则计,即0~100
-    public setopacity(ev:any,value:any){
-      ev.filters?ev.style.filter = `alpha(opacity=${value})`:ev.style.opacity = value / 100
+    public setopacity(ev: any, value: any) {
+      ev.filters ? (ev.style.filter = `alpha(opacity=${value})`) : (ev.style.opacity = value / 100)
+    }
+    public getinitOption(this: any) {
+      return this.option
     }
   }
 }
