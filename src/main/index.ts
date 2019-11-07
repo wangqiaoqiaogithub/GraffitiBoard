@@ -66,7 +66,7 @@ export namespace Mainpoint {
       })
     }
     public canvasHistory: any = [] // 储存画笔历史
-    public step: number = -1
+    public step: number = -1 // 当前进行的步骤
     public utilbasename: any = new utilbase.Util() // 引用基础类并实例化
     public component: any = new Component.ViewUi() // 引用组件类并实例化
     public eraserEnabled: boolean = true
