@@ -1,0 +1,51 @@
+body,div,p,h1,h2,h3,h4,h5,h6,input,ol,ul,li{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    position: fixed;
+    bottom: 0;
+}
+#eraser{
+    width: 100px;
+    height: 100px;
+    background: #000000;
+}
+#pencli{
+    width: 100px;
+    height: 100px;
+    background: #50a1e2;
+}
+#clear{
+    width: 100px;
+    height: 100px;
+    background: #222222;
+}
+#down{
+    width: 100px;
+    height: 100px;
+    background: #3d3d3d;
+}
+#undo{
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+}
+#redo{
+    width: 100px;
+    height: 100px;
+    background: #ccc;
+}
+.penname {
+    background-color: #cccccc!important;
+}
+.erasername{
+    background-color: #00f!important;
+}
+.undoname{
+    background-color: #cccccc!important;
+}
+.redoname{
+    background-color: #f0f!important;
+}
