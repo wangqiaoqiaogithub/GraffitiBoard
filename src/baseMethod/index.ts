@@ -45,8 +45,5 @@ export namespace utilbase {
     public setopacity(ev: any, value: any) {
       ev.filters ? (ev.style.filter = `alpha(opacity=${value})`) : (ev.style.opacity = value / 100)
     }
-    public getinitOption(this: any) {
-      return this.option
-    }
   }
 }
