@@ -41,6 +41,14 @@ export namespace Component {
           clearInterval(timer) // 清除定时器
         }
       )
+      this.utilbasename.addEvent(
+        div.getElementsByClassName('notification')[0],
+        'mouseleave',
+        () => {
+          // 移出鼠标后删除自身
+          div.remove()
+        }
+      )
     }
     params.prototype.vuNotice = function(title: string, content: string) {
       let vunTitle: any = title
