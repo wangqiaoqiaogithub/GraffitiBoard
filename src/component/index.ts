@@ -38,7 +38,7 @@ export namespace Component {
         div.getElementsByClassName('notification')[0],
         'mouseenter',
         () => {
-          div.remove()
+          clearInterval(timer) // 清除定时器
         }
       )
     }
