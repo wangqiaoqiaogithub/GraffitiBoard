@@ -8,7 +8,7 @@ export namespace Component {
     params.prototype.noticeBtn = null
     params.prototype.noticeTitle = undefined
     params.prototype.noticecontent = undefined
-    params.prototype.vuinit = function(vutitle: any, vucontent: any) {
+    params.prototype.vuinit = function(vutitle: any, vucontent: any, speed: any) {
       let div: any = document.createElement('div')
       let style: any = document.createElement('style')
       let head: any = document.getElementsByTagName('head')[0]
@@ -19,13 +19,28 @@ export namespace Component {
       this.noticeTitle = vutitle
       this.noticecontent = vucontent
       let vuNotice: any = this.vuNotice(this.noticeTitle, this.noticecontent)
+      speed = 4000 // 默认弹框隐藏显示速度
       style.innerHTML = this.noticeStyle()
       div.innerHTML = vuNotice
       head.appendChild(style)
       body.appendChild(div)
-      this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
-        div.getElementsByClassName('notification')[0].style = 'display: none'
+      const timer: any = setInterval(() => {
+        div.remove() // 定时器删除自身
+        // console.log(1)
+      }, speed)
+      this.utilbasename.addEvent(window, 'load', () => {
+        setInterval(timer)
       })
+      this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
+        div.remove() // 删除自身
+      })
+      this.utilbasename.addEvent(
+        div.getElementsByClassName('notification')[0],
+        'mouseenter',
+        () => {
+          div.remove()
+        }
+      )
     }
     params.prototype.vuNotice = function(title: string, content: string) {
       let vunTitle: any = title
@@ -95,30 +110,6 @@ export namespace Component {
             }
             `
       return nstyle
-    }
-    params.prototype.vhide = function() {
-      this.fadeOut(document.getElementsByClassName('notification')[0], 200, 10)
-    }
-    params.prototype.fadeOut = function(elem: any, speed: any, opacity: any) {
-      speed = speed || 20
-      opacity = opacity || opacity
-      /**
-       * 参数说明
-       * elem==>需要淡入的元素
-       * speed==>淡入速度,正整数(可选)
-       * opacity==>淡入到指定的透明度,0~100(可选)
-       */
-      let val = 100
-      ;(function(this: any) {
-        this.utilbasename.opacity(elem, val)
-        val -= 5
-        if (val >= opacity) {
-          // tslint:disable-next-line:no-arg
-          setTimeout(arguments.callee, speed)
-        } else {
-          elem.style = 'display:none'
-        }
-      })()
     }
   }
   @addExtend
