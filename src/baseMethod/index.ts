@@ -2,6 +2,7 @@ export namespace utilbase {
   export class Util {
     /**
      * typeof方法特性如下
+     * @method typeof
      * @param element:string
      */
     public typeof(element: string) {
@@ -9,6 +10,7 @@ export namespace utilbase {
     }
     /**
      * 通过Util基类中的addEvent方法兼容addEventListener和attachEvent并提供该接口
+     * @method addEvent
      * @param element
      * @param type
      * @param function fn
@@ -27,6 +29,7 @@ export namespace utilbase {
     }
     /**
      * 通过util类封装设置自定义属性方法
+     * @method addAttr
      * @param element
      * @param nature
      * @param className
@@ -36,6 +39,7 @@ export namespace utilbase {
     }
     /**
      * 通过util类封装删除自定义属性方法
+     * @method removeAttr
      * @param element
      * @param nature
      * @param className
@@ -45,6 +49,7 @@ export namespace utilbase {
     }
     /**
      * 通过util类封装添加样式的方法放在css函数里
+     * @method css
      * @param element
      * @param obj
      */
