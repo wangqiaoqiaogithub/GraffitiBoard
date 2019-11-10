@@ -119,6 +119,9 @@ export namespace Component {
             `
       return nstyle
     }
+    params.prototype.opacity = function() {
+      return
+    }
   }
   @addExtend
   export class ViewUi {
