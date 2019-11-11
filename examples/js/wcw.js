@@ -45,12 +45,18 @@ var utilbase;
         }
         /**
          * typeof方法特性如下
+         * @method typeof
+         * @param element:string
          */
         Util.prototype.typeof = function (element) {
             return typeof element === 'string' ? document.querySelector(element) : element;
         };
         /**
          * 通过Util基类中的addEvent方法兼容addEventListener和attachEvent并提供该接口
+         * @method addEvent
+         * @param element
+         * @param type
+         * @param function fn
          */
         Util.prototype.addEvent = function (element, type, fn) {
             if (document.addEventListener) {
@@ -67,18 +73,29 @@ var utilbase;
         };
         /**
          * 通过util类封装设置自定义属性方法
+         * @method addAttr
+         * @param element
+         * @param nature
+         * @param className
          */
         Util.prototype.addAttr = function (element, nature, className) {
             return element.setAttribute(nature, className);
         };
         /**
          * 通过util类封装删除自定义属性方法
+         * @method removeAttr
+         * @param element
+         * @param nature
+         * @param className
          */
         Util.prototype.removeAttr = function (element, nature, className) {
             return element.removeAttribute(nature, className);
         };
         /**
          * 通过util类封装添加样式的方法放在css函数里
+         * @method css
+         * @param element
+         * @param obj
          */
         Util.prototype.css = function (element, obj) {
             for (var i in obj) {
@@ -590,6 +607,7 @@ var Component;
         params.prototype.noticeTitle = undefined;
         params.prototype.noticecontent = undefined;
         params.prototype.vuinit = function (vutitle, vucontent, speed) {
+            var _this = this;
             var div = document.createElement('div');
             var style = document.createElement('style');
             var head = document.getElementsByTagName('head')[0];
@@ -613,15 +631,16 @@ var Component;
                 setInterval(timer);
             });
             this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', function () {
-                div.remove(); // 删除自身
+                // div.remove() // 删除自身
+                _this.fadeOut(div);
             });
             this.utilbasename.addEvent(div.getElementsByClassName('notification')[0], 'mouseenter', function () {
-                console.log(1)
-                clearInterval(timer)
+                clearInterval(timer); // 清除定时器
             });
-            this.utilbasename.addEvent(div.getElementsByClassName('notification')[0], 'mouseleave', function () {
-                div.remove();
-            });
+            // this.utilbasename.addEvent(div.getElementsByClassName('notification')[0], 'mouseleave', function () {
+            //     // 移出鼠标后删除自身
+            //     div.remove();
+            // });
         };
         params.prototype.vuNotice = function (title, content) {
             var vunTitle = title;
@@ -632,6 +651,21 @@ var Component;
         params.prototype.noticeStyle = function () {
             var nstyle = "\n            .notification {\n            display: flex;\n            width: 330px;\n            padding: 14px 26px 14px 13px;\n            border-radius: 8px;\n            box-sizing: border-box;\n            border: 1px solid #ebeef5;\n            position: fixed;\n            right: 20px;\n            background-color: #fff;\n            box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);\n            transition: opacity .3s,transform .3s,left .3s,right .3s,top .4s,bottom .3s;\n            overflow: hidden;\n            }\n            .noticegrounp{\n            margin-left: 13px;\n            margin-right: 8px;\n            }\n            .notice_title{\n            font-weight: 700;\n            font-size: 16px;\n            color: #303133;\n            margin: 0;\n            }\n            .notciecontent{\n            font-size: 14px;\n            line-height: 21px;\n            margin: 6px 0 0;\n            color: #606266;\n            text-align: justify;\n            }\n            .noticecontent p{\n            margin: 0;\n            }\n            .noticeBtn{\n            position: absolute;\n            top: 18px;\n            right: 15px;\n            width: 10px;\n            height: 10px;\n            cursor: pointer;\n            background: #000;\n            color: #909399;\n            font-size: 16px;\n            }\n            ";
             return nstyle;
+        };
+        params.prototype.fadeOut = function (elem) {
+            // 淡出功能
+            if (elem.style.opacity !== 0) {
+                var speed = 20;
+                var num_1 = 10;
+                var opacityst_1 = setInterval(function () {
+                    num_1--;
+                    elem.style.opacity = num_1 / 10;
+                    if (num_1 <= 0) {
+                        clearInterval(opacityst_1);
+                        elem.remove(); // 删除自身
+                    }
+                }, speed);
+            }
         };
     }
     Component.addExtend = addExtend;

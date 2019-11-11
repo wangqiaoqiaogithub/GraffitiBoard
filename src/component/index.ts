@@ -32,7 +32,8 @@ export namespace Component {
         setInterval(timer)
       })
       this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
-        div.remove() // 删除自身
+        // div.remove() // 删除自身
+        this.fadeOut(div)
       })
       this.utilbasename.addEvent(
         div.getElementsByClassName('notification')[0],
@@ -118,6 +119,21 @@ export namespace Component {
             }
             `
       return nstyle
+    }
+    params.prototype.fadeOut = function(elem: any) {
+      // 淡出功能
+      if (elem.style.opacity !== 0) {
+        let speed: any = undefined || 20
+        let num: number = 10
+        let opacityst = setInterval(() => {
+          num--
+          elem.style.opacity = num / 10
+          if (num <= 0) {
+            clearInterval(opacityst)
+            elem.remove() // 删除自身
+          }
+        }, speed)
+      }
     }
   }
   @addExtend
