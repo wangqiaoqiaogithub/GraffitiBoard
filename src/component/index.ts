@@ -32,10 +32,10 @@ export namespace Component {
 
       this.utilbasename.addEvent(window, 'load', () => {
         let mouse = div.getElementsByClassName('notification')[0]
-        mouse.onmouseenter = function() {
+        mouse.onmouseenter = () => {
           clearInterval(timer)
         }
-        mouse.onmouseleave = function() {
+        mouse.onmouseleave = () => {
           timer = setInterval(() => {
             this.fadeOut(div)
           }, 4000)
