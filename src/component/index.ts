@@ -36,8 +36,8 @@ export namespace Component {
           clearInterval(timer)
         }
         mouse.onmouseleave = function() {
-          timer = setInterval(function() {
-            div.remove()
+          timer = setInterval(() => {
+            this.fadeOut(div)
           }, 4000)
         }
       })
