@@ -16,6 +16,10 @@ export namespace Shape {
     context.restore() // 回复上下文
   }
   export function squareText() {
-    return
+    let sText = `<div class=“sauare_text”></div>`
+    let sw = document.createElement(sText)
+    let body = document.getElementsByTagName('body')[0]
+    body.appendChild(sw)
+    return sText
   }
 }

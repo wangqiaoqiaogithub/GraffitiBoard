@@ -13,6 +13,7 @@ export namespace Component {
       let style: any = document.createElement('style')
       let head: any = document.getElementsByTagName('head')[0]
       let body: any = document.getElementsByTagName('body')[0]
+      let onoff: Boolean = true
       this.utilbasename = new utilbase.Util()
       this.noticeWrap = div.getElementsByClassName('notification')[0]
       this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
@@ -24,32 +25,41 @@ export namespace Component {
       div.innerHTML = vuNotice
       head.appendChild(style)
       body.appendChild(div)
-      const timer: any = setInterval(() => {
+      let timer: any = setInterval(() => {
         div.remove() // 定时器删除自身
         // console.log(1)
       }, speed)
+
       this.utilbasename.addEvent(window, 'load', () => {
-        setInterval(timer)
+        let mouse = div.getElementsByClassName('notification')[0]
+        mouse.onmouseenter = function() {
+          clearInterval(timer)
+        }
+        mouse.onmouseleave = function() {
+          timer = setInterval(() => {
+            this.fadeOut(div)
+          }, 4000)
+        }
       })
       this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
         // div.remove() // 删除自身
         this.fadeOut(div)
       })
-      this.utilbasename.addEvent(
-        div.getElementsByClassName('notification')[0],
-        'mouseenter',
-        () => {
-          clearInterval(timer) // 清除定时器
-        }
-      )
-      this.utilbasename.addEvent(
-        div.getElementsByClassName('notification')[0],
-        'mouseleave',
-        () => {
-          // 移出鼠标后删除自身
-          div.remove()
-        }
-      )
+      // this.utilbasename.addEvent(
+      //   div.getElementsByClassName('notification')[0],
+      //   'mouseenter',
+      //   () => {
+      //     clearInterval(timer) // 清除定时器
+      //   }
+      // )
+      // this.utilbasename.addEvent(
+      //   div.getElementsByClassName('notification')[0],
+      //   'mouseleave',
+      //   () => {
+      //     // 移出鼠标后删除自身
+      //     div.remove()
+      //   }
+      // )
     }
     params.prototype.vuNotice = function(title: string, content: string) {
       let vunTitle: any = title
