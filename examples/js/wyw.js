@@ -614,25 +614,24 @@ var Component;
             this.noticeTitle = vutitle;
             this.noticecontent = vucontent;
             var vuNotice = this.vuNotice(this.noticeTitle, this.noticecontent);
-            speed = 4000; // 默认弹框隐藏显示速度
+            var timer = setTimeout(function () {
+                div.remove(); // 定时器删除自身
+                // console.log(1)
+            }, speed);
             style.innerHTML = this.noticeStyle();
             div.innerHTML = vuNotice;
             head.appendChild(style);
             body.appendChild(div);
-            var timer = setInterval(function () {
-                div.remove(); // 定时器删除自身
-                // console.log(1)
-            }, speed);
-            this.utilbasename.addEvent(window, 'load', function () {
-                var mouse = div.getElementsByClassName('notification')[0];
+            this.utilbasename.addEvent(window, "load", function () {
+                var mouse = div.getElementsByClassName('notification');
+                speed = 4000; // 默认弹框隐藏显示速度
                 mouse.onmouseenter = function () {
-                    console.log(1)
-                    clearInterval(timer);
+                    div.clearTimeout(timer);
+                    console.log(1);
                 };
                 mouse.onmouseleave = function () {
                     timer = setInterval(function () {
                         _this.fadeOut(div);
-                        console.log(1)
                     }, 4000);
                 };
             });
@@ -740,8 +739,8 @@ var Mainpoint;
             this.listentoUser(config);
             this.autoCanvasSize();
             this.downloadEvent(config);
-            this.cancel();
             this.canvasRedo();
+            this.cancel();
             // Shape.shapesquare(this.context)
         };
         MainMethods.prototype.eraserEvent = function () {
@@ -1021,3 +1020,6 @@ var GBoard = /** @class */ (function (_super) {
  * Released under the MIT License.
  */
 
+export default GBoard;
+export { Mainpoint, utilbase };
+//# sourceMappingURL=--libra

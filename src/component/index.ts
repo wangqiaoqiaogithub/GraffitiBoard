@@ -8,6 +8,7 @@ export namespace Component {
     params.prototype.noticeBtn = null
     params.prototype.noticeTitle = undefined
     params.prototype.noticecontent = undefined
+    params.prototype.timer = undefined
     params.prototype.vuinit = function(vutitle: any, vucontent: any, speed: any) {
       let div: any = document.createElement('div')
       let style: any = document.createElement('style')
@@ -19,26 +20,29 @@ export namespace Component {
       this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
       this.noticeTitle = vutitle
       this.noticecontent = vucontent
+      //
       let vuNotice: any = this.vuNotice(this.noticeTitle, this.noticecontent)
-      speed = 4000 // 默认弹框隐藏显示速度
+      // let timer: any = setTimeout(() => {
+      //     this.fadeOut(div) // 定时器删除自身
+      //     console.log(div)
+      // }, speed)
       style.innerHTML = this.noticeStyle()
       div.innerHTML = vuNotice
       head.appendChild(style)
       body.appendChild(div)
-      let timer: any = setInterval(() => {
-        div.remove() // 定时器删除自身
-        // console.log(1)
-      }, speed)
-
       this.utilbasename.addEvent(window, 'load', () => {
-        let mouse = div.getElementsByClassName('notification')[0]
+        let mouse = div.getElementsByClassName('notification')
+        this.timerplus(div, this.timer)
         mouse.onmouseenter = () => {
-          clearInterval(timer)
+          // clearTimeout(timer)
+          this.stoptimeplus(this.timer)
+          console.log(1)
         }
         mouse.onmouseleave = () => {
-          timer = setInterval(() => {
-            this.fadeOut(div)
-          }, 4000)
+          this.timerplus(div, this.timer)
+          // timer = setTimeout(() => {
+          //   // this.fadeOut(div)
+          // }, 4000)
         }
       })
       this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
@@ -129,6 +133,13 @@ export namespace Component {
             }
             `
       return nstyle
+    }
+    params.prototype.timerplus = function(elem: any, timer: any) {
+      this.fadeOut(elem)
+      timer = setTimeout(this.timerplus(), 4000)
+    }
+    params.prototype.stoptimeplus = function(timer: any) {
+      return clearTimeout(timer)
     }
     params.prototype.fadeOut = function(elem: any) {
       // 淡出功能

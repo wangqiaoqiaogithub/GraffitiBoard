@@ -77,8 +77,8 @@ export namespace Mainpoint {
       this.listentoUser(config)
       this.autoCanvasSize()
       this.downloadEvent(config)
-      this.cancel()
       this.canvasRedo()
+      this.cancel()
       // Shape.shapesquare(this.context)
     }
     private eraserEvent() {
