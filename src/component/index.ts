@@ -31,9 +31,6 @@ export namespace Component {
       head.appendChild(style)
       body.appendChild(div)
       this.utilbasename.addEvent(window, 'load', () => {
-        let div: any = document.createElement('div')
-        let head: any = document.getElementsByTagName('head')[0]
-        let body: any = document.getElementsByTagName('body')[0]
         div.onmouseenter = () => {
           clearTimeout(timer)
           console.log(1)
