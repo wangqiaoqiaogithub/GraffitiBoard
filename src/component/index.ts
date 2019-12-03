@@ -8,6 +8,7 @@ export namespace Component {
     params.prototype.noticeBtn = null
     params.prototype.noticeTitle = undefined
     params.prototype.noticecontent = undefined
+    params.prototype.timer = undefined
     params.prototype.vuinit = function(vutitle: any, vucontent: any, speed: any) {
       let div: any = document.createElement('div')
       let style: any = document.createElement('style')
@@ -19,24 +20,23 @@ export namespace Component {
       this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
       this.noticeTitle = vutitle
       this.noticecontent = vucontent
+      speed = 4000
       let vuNotice: any = this.vuNotice(this.noticeTitle, this.noticecontent)
-      speed = 4000 // 默认弹框隐藏显示速度
+      let timer: any = setTimeout(() => {
+        this.fadeOut(div) // 定时器删除自身
+        console.log(div)
+      }, speed)
       style.innerHTML = this.noticeStyle()
       div.innerHTML = vuNotice
       head.appendChild(style)
       body.appendChild(div)
-      let timer: any = setInterval(() => {
-        div.remove() // 定时器删除自身
-        // console.log(1)
-      }, speed)
-
       this.utilbasename.addEvent(window, 'load', () => {
-        let mouse = div.getElementsByClassName('notification')[0]
-        mouse.onmouseenter = function() {
-          clearInterval(timer)
+        div.onmouseenter = () => {
+          clearTimeout(timer)
+          console.log(1)
         }
-        mouse.onmouseleave = function() {
-          timer = setInterval(() => {
+        div.onmouseleave = () => {
+          timer = setTimeout(() => {
             this.fadeOut(div)
           }, 4000)
         }
