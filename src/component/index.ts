@@ -9,6 +9,7 @@ export namespace Component {
     params.prototype.noticeTitle = undefined
     params.prototype.noticecontent = undefined
     params.prototype.timer = undefined
+    let div: any = document.createElement('div')
     params.prototype.vuinit = function(vutitle: any, vucontent: any, speed: any) {
       let div: any = document.createElement('div')
       let style: any = document.createElement('style')
@@ -16,8 +17,6 @@ export namespace Component {
       let body: any = document.getElementsByTagName('body')[0]
       let onoff: Boolean = true
       this.utilbasename = new utilbase.Util()
-      this.noticeWrap = div.getElementsByClassName('notification')[0]
-      this.noticeBtn = div.getElementsByClassName('noticeBtn')[0]
       this.noticeTitle = vutitle
       this.noticecontent = vucontent
       speed = 4000
@@ -41,6 +40,12 @@ export namespace Component {
           }, 4000)
         }
       })
+      if (div) {
+        div.onmouseenter = () => {
+          clearTimeout(timer)
+          console.log(1)
+        }
+      }
       this.utilbasename.addEvent(div.getElementsByClassName('noticeBtn')[0], 'click', () => {
         // div.remove() // 删除自身
         this.fadeOut(div)
