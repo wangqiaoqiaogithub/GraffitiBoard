@@ -649,6 +649,7 @@ var Component;
                 };
             }
             if(div){
+                var onoff = true;
                 div.onmouseenter = function () {
                     clearTimeout(timer);
                     console.log('bilibili');
