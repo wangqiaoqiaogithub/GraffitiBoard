@@ -30,6 +30,6 @@ export interface GBoardApi {
 // 这是内置设色器模块的interface
 // tslint:disable-next-line:class-name
 export interface cpickerApi {
-  elem: any
+  elem?: string
 }
 // 以上是内置设色器的interface

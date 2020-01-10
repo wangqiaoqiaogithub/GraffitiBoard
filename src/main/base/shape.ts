@@ -1,7 +1,7 @@
 import { utilbase } from '../../baseMethod'
-export namespace Shape {
+export namespace TextShape {
   const utilbasename: any = new utilbase.Util()
-  export function shapesquare(this: any, context: any) {
+  export const Shapesquare = function(this: any, context: any) {
     let option: any = this.getOpation()
     let x: any = this.option.x
     let y: any = this.option.y
@@ -16,7 +16,7 @@ export namespace Shape {
     context.restore() // 回复上下文
   }
   export function squareText() {
-    let sText = `<div class=“sauare_text”></div>`
+    let sText = `<div class="sauare_text"></div>`
     let sw = document.createElement(sText)
     let body = document.getElementsByTagName('body')[0]
     body.appendChild(sw)

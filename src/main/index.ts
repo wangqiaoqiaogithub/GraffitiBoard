@@ -2,7 +2,7 @@ import { utilbase } from '../baseMethod/index'
 import { GBoardApi } from '../types/index'
 import { colorpick } from '../main/base/colorpicker'
 import { Component } from '../component'
-import { Shape } from '../main/base/shape'
+// import { TextShape } from '../main/base/shape'
 export namespace Mainpoint {
   export class MainMethods {
     name: string
@@ -30,11 +30,6 @@ export namespace Mainpoint {
       naturename: string
       elementname: any
     }
-    redo: string
-    redoAttr: {
-      naturename: string
-      elementname: string
-    }
     constructor(config: GBoardApi) {
       this.name = config.GBname
       this.canvas = this.utilbasename.typeof(this.name)
@@ -54,19 +49,15 @@ export namespace Mainpoint {
       this.downloadType.downloadFormat = config.downloadType.downloadFormat
       this.downloadType.PictureName = config.downloadType.PictureName
       this.undo = this.utilbasename.typeof(config.undo)
-      this.redo = this.utilbasename.typeof(config.redo)
       this.undoAttr = config.undoAttr
-      this.redoAttr = config.redoAttr
       this.undoAttr.naturename = config.undoAttr.naturename
       this.undoAttr.elementname = config.undoAttr.elementname
-      this.redoAttr.naturename = config.redoAttr.naturename
-      this.redoAttr.elementname = config.redoAttr.elementname
       this.colorpicker = new colorpick.Cpicker({
         elem: '#pencli'
       })
     }
     public canvasHistory: any = [] // 储存画笔历史
-    public step: number = -1 // 当前进行的步骤
+    public step: any // 当前进行的步骤
     public utilbasename: any = new utilbase.Util() // 引用基础类并实例化
     public component: any = new Component.ViewUi() // 引用组件类并实例化
     public eraserEnabled: boolean = true
@@ -77,11 +68,11 @@ export namespace Mainpoint {
       this.listentoUser(config)
       this.autoCanvasSize()
       this.downloadEvent(config)
-      this.canvasRedo()
-      this.cancel()
+      this.changeundo()
       // Shape.shapesquare(this.context)
     }
     private eraserEvent() {
+      // 橡皮擦样式属性容器
       let eraser = this.utilbasename.typeof(this.eraser)
       let eraserAttr = this.eraserAttr
       let pen = this.utilbasename.typeof(this.pen)
@@ -96,6 +87,7 @@ export namespace Mainpoint {
       })
     }
     private penEvent() {
+      // 画笔的样式属性容器
       let pen = this.utilbasename.typeof(this.pen)
       let eraser = this.utilbasename.typeof(this.eraser)
       let eraserAttr = this.eraserAttr
@@ -110,6 +102,7 @@ export namespace Mainpoint {
       })
     }
     private clearEvent() {
+      // 画板清除（重置）
       let clear = this.utilbasename.typeof(this.clear)
       let canvas = this.canvas
       this.utilbasename.addEvent(clear, 'click', () => {
@@ -195,6 +188,8 @@ export namespace Mainpoint {
       }
       if (document.body.ontouchstart === undefined) {
         this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
+          this.step = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height) //在这里储存绘图表面
+          this.canvassavedata(this.step)
           const x: any = a.clientX
           const y: any = a.clientY
           using = true
@@ -227,7 +222,6 @@ export namespace Mainpoint {
         })
         this.utilbasename.addEvent(this.canvas, 'mouseup', () => {
           using = false
-          this.canvasDraw()
         })
       } else {
         this.utilbasename.addEvent(this.canvas, 'touchstart', (a: any) => {
@@ -263,71 +257,22 @@ export namespace Mainpoint {
         })
         this.utilbasename.addEvent(this.canvas, 'touchend', () => {
           using = false
-          this.canvasDraw()
+          this.step = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height) //在这里储存绘图表面
+          this.canvassavedata(this.step)
         })
       }
     }
-    public canvasDraw() {
-      let undo = this.undo
-      let step = this.step
-      let undonaturename = this.undoAttr.naturename
-      let undoelementname = this.undoAttr.elementname
-      // 画板绘制方法
-      step++
-      if (step < this.canvasHistory.length) {
-        this.canvasHistory.length = step // 截断数组
-      }
-      // 添加新的绘制到历史记录
-      if (step > 0) {
-        this.utilbasename.addAttr(undo, undonaturename, undoelementname)
-      }
+    private canvassavedata(data: any) {
+      this.canvasHistory.length === 10 && this.canvasHistory.shift() // 上限为储存10步，太多了怕挂掉
+      this.canvasHistory.push(data)
     }
-    public cancel() {
-      // 实现画板撤销方法
-      let undo = this.undo
-      let redo = this.redo
-      let undonaturename = this.undoAttr.naturename
-      let undoelementname = this.undoAttr.elementname
-      let redonaturename = this.redoAttr.naturename
-      let redoelementname = this.redoAttr.elementname
-      let step = this.step
-      let canvasPic = new Image()
+    public changeundo() {
+      const undo = this.undo
       this.utilbasename.addEvent(undo, 'click', () => {
-        if (step > 0) {
-          step--
-          let canvasPic = new Image()
-          canvasPic.src = this.canvasHistory[step]
-          canvasPic.onload = () => {
-            this.context.drawImage(canvasPic, 0, 0)
-          }
-          this.utilbasename.addAttr(undo, undonaturename, undoelementname)
-          this.utilbasename.addAttr(redo, redonaturename, redoelementname)
-        } else {
-          this.utilbasename.removeAttr(undo, undonaturename, undoelementname)
-          this.component.vuinit('通知', '不能再撤销了')
-          // console.log('不能在撤销了')
-        }
+        if (this.canvasHistory.length < 1) return false
+        this.context.putImageData(this.canvasHistory[this.canvasHistory.length - 1], 0, 0)
+        this.canvasHistory.pop()
       })
-    }
-    public canvasRedo() {
-      let step = this.step
-      let undo = this.undo
-      let redo = this.redo
-      let redonaturename = this.redoAttr.naturename
-      let redoelementname = this.redoAttr.elementname
-      // 实现画板重做部分方法
-      if (step < this.canvasHistory.length - 1) {
-        step++
-        let canvasPic = new Image()
-        canvasPic.src = this.canvasHistory[step]
-        canvasPic.onload = () => {
-          this.context.drawImage(canvasPic, 0, 0)
-        }
-      } else {
-        this.utilbasename.removeAttr(redo, redonaturename, redoelementname)
-        this.component.vuinit('通知', '已经是最新记录了')
-        // console.log('已经是最新记录了')
-      }
     }
   }
 }
