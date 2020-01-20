@@ -30,6 +30,7 @@ export namespace Mainpoint {
       naturename: string
       elementname: any
     }
+    redo: string
     constructor(config: GBoardApi) {
       this.name = config.GBname
       this.canvas = this.utilbasename.typeof(this.name)
@@ -49,6 +50,7 @@ export namespace Mainpoint {
       this.downloadType.downloadFormat = config.downloadType.downloadFormat
       this.downloadType.PictureName = config.downloadType.PictureName
       this.undo = this.utilbasename.typeof(config.undo)
+      this.redo = this.utilbasename.typeof(config.redo)
       this.undoAttr = config.undoAttr
       this.undoAttr.naturename = config.undoAttr.naturename
       this.undoAttr.elementname = config.undoAttr.elementname
@@ -69,6 +71,7 @@ export namespace Mainpoint {
       this.autoCanvasSize()
       this.downloadEvent(config)
       this.changeundo()
+      this.changeredo()
       // Shape.shapesquare(this.context)
     }
     private eraserEvent() {
@@ -189,7 +192,6 @@ export namespace Mainpoint {
       if (document.body.ontouchstart === undefined) {
         this.utilbasename.addEvent(this.canvas, 'mousedown', (a: any) => {
           this.step = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height) //在这里储存绘图表面
-          this.canvassavedata(this.step)
           const x: any = a.clientX
           const y: any = a.clientY
           using = true
@@ -222,6 +224,7 @@ export namespace Mainpoint {
         })
         this.utilbasename.addEvent(this.canvas, 'mouseup', () => {
           using = false
+          this.canvassavedata(this.step)
         })
       } else {
         this.utilbasename.addEvent(this.canvas, 'touchstart', (a: any) => {
@@ -269,8 +272,18 @@ export namespace Mainpoint {
     public changeundo() {
       const undo = this.undo
       this.utilbasename.addEvent(undo, 'click', () => {
-        if (this.canvasHistory.length < 1) return false
+        if (this.canvasHistory.length < 1) {
+          this.component.vuinit('通知', '不能在进行撤销')
+        }
         this.context.putImageData(this.canvasHistory[this.canvasHistory.length - 1], 0, 0)
+        this.canvasHistory.pop()
+      })
+      // 以上为画板撤销功能
+    }
+    public changeredo() {
+      const redo = this.redo
+      this.utilbasename.addEvent(redo, 'click', () => {
+        this.context.putImageData(this.step, 0, 0)
         this.canvasHistory.pop()
       })
     }

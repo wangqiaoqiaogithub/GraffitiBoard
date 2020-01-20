@@ -28,8 +28,16 @@ export interface GBoardApi {
 }
 // 以上是主模块的interface
 // 这是内置设色器模块的interface
-// tslint:disable-next-line:class-name
 export interface cpickerApi {
   elem?: string
 }
 // 以上是内置设色器的interface
+
+export interface consleApi {
+  name: string
+  linktext?: string
+  stylename: string
+  stylelink?: string
+  styletext?: string
+}
+// 以上为console打印时出现的内容（addconsole方法的 API）
