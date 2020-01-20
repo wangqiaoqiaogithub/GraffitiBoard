@@ -85,13 +85,9 @@ export namespace Mainpoint {
     private eraserEvent() {
       // 橡皮擦样式属性容器
       let eraser = this.utilbasename.typeof(this.eraser)
-      let eraserAttr = this.eraserAttr
-      let pen = this.utilbasename.typeof(this.pen)
       this.utilbasename.addEvent(eraser, 'click', () => {
         let eAttrnaturename = this.eraserAttr.naturename
         let eAttrelementname = this.eraserAttr.elementname
-        let penAnaturename = this.penAttr.naturename
-        let penAelementname = this.penAttr.elementname
         this.eraserEnabled = true
         if ((this.onoff = true)) {
           this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname)
@@ -105,13 +101,9 @@ export namespace Mainpoint {
     private penEvent() {
       // 画笔的样式属性容器
       let pen = this.utilbasename.typeof(this.pen)
-      let eraser = this.utilbasename.typeof(this.eraser)
-      let eraserAttr = this.eraserAttr
       this.utilbasename.addEvent(pen, 'click', () => {
         let penAnaturename = this.penAttr.naturename
         let penAelementname = this.penAttr.elementname
-        let eAttrnaturename = this.eraserAttr.naturename
-        let eAttrelementname = this.eraserAttr.elementname
         this.eraserEnabled = false
         if ((this.onoff = true)) {
           this.utilbasename.addAttr(pen, penAnaturename, penAelementname)
