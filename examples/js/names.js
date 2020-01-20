@@ -679,21 +679,20 @@ var Component;
                 stylename: parameter.stylename,
                 stylelinkt: parameter.stylelink
             };
-            console.info("" + param.name + param.linktext + "", param.stylename, param.stylelinkt);
+            console.info('' + param.name + param.linktext + '', param.stylename, param.stylelinkt);
         };
         params.prototype.content = function (options) {
             var param = {
                 name: options.name,
                 styletext: options.styletext
             };
-            console.log("" + options.name + "", options.styletext);
+            console.log('' + options.name + '', options.styletext);
         };
     }
     Component.addconsole = addconsole;
     function addAlert(params) {
         // 输出提示信息文本组件
-        params.prototype.newcreate = function () {
-        };
+        params.prototype.newcreate = function () { };
     }
     Component.addAlert = addAlert;
     var ViewUi = /** @class */ (function () {
@@ -719,6 +718,7 @@ var Mainpoint;
             this.utilbasename = new utilbase.Util(); // 引用基础类并实例化
             this.component = new Component.ViewUi(); // 引用组件类并实例化
             this.eraserEnabled = true;
+            this.onoff = true;
             this.name = config.GBname;
             this.canvas = this.utilbasename.typeof(this.name);
             this.context = this.canvas.getContext('2d');
@@ -767,8 +767,16 @@ var Mainpoint;
                 var penAnaturename = _this.penAttr.naturename;
                 var penAelementname = _this.penAttr.elementname;
                 _this.eraserEnabled = true;
-                _this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname);
-                _this.utilbasename.removeAttr(pen, penAnaturename, penAelementname);
+                if (_this.onoff) {
+                    _this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname);
+                    console.log(1)
+                    _this.onoff = false;
+                }
+                else {
+                    console.log(2)
+                    _this.utilbasename.removeAttr(eraser, eAttrnaturename, eAttrelementname);
+                    _this.onoff = true;
+                }
             });
         };
         MainMethods.prototype.penEvent = function () {
@@ -783,8 +791,14 @@ var Mainpoint;
                 var eAttrnaturename = _this.eraserAttr.naturename;
                 var eAttrelementname = _this.eraserAttr.elementname;
                 _this.eraserEnabled = false;
-                _this.utilbasename.addAttr(pen, penAnaturename, penAelementname);
-                _this.utilbasename.removeAttr(eraser, eAttrnaturename, eAttrelementname);
+                if (_this.onoff) {
+                    _this.utilbasename.addAttr(pen, penAnaturename, penAelementname);
+                    _this.onoff = false;
+                }
+                else {
+                    _this.utilbasename.removeAttr(pen, penAnaturename, penAelementname);
+                    _this.onoff = true;
+                }
             });
         };
         MainMethods.prototype.clearEvent = function () {
