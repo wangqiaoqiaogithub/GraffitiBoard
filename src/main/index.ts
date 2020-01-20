@@ -31,6 +31,10 @@ export namespace Mainpoint {
       elementname: any
     }
     redo: string
+    redoAttr: {
+      naturename: string
+      elementname: any
+    }
     constructor(config: GBoardApi) {
       this.name = config.GBname
       this.canvas = this.utilbasename.typeof(this.name)
@@ -52,8 +56,11 @@ export namespace Mainpoint {
       this.undo = this.utilbasename.typeof(config.undo)
       this.redo = this.utilbasename.typeof(config.redo)
       this.undoAttr = config.undoAttr
+      this.redoAttr = config.redoAttr
       this.undoAttr.naturename = config.undoAttr.naturename
       this.undoAttr.elementname = config.undoAttr.elementname
+      this.redoAttr.naturename = config.redoAttr.naturename
+      this.redoAttr.elementname = config.redoAttr.elementname
       this.colorpicker = new colorpick.Cpicker({
         elem: '#pencli'
       })
@@ -63,6 +70,7 @@ export namespace Mainpoint {
     public utilbasename: any = new utilbase.Util() // 引用基础类并实例化
     public component: any = new Component.ViewUi() // 引用组件类并实例化
     public eraserEnabled: boolean = true
+    public onoff: boolean = true
     private colorpicker: any
     public init(config: GBoardApi) {
       this.userEvent(config)
@@ -77,31 +85,33 @@ export namespace Mainpoint {
     private eraserEvent() {
       // 橡皮擦样式属性容器
       let eraser = this.utilbasename.typeof(this.eraser)
-      let eraserAttr = this.eraserAttr
-      let pen = this.utilbasename.typeof(this.pen)
       this.utilbasename.addEvent(eraser, 'click', () => {
         let eAttrnaturename = this.eraserAttr.naturename
         let eAttrelementname = this.eraserAttr.elementname
-        let penAnaturename = this.penAttr.naturename
-        let penAelementname = this.penAttr.elementname
         this.eraserEnabled = true
-        this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname)
-        this.utilbasename.removeAttr(pen, penAnaturename, penAelementname)
+        if ((this.onoff = true)) {
+          this.utilbasename.addAttr(eraser, eAttrnaturename, eAttrelementname)
+          this.onoff = false
+        } else {
+          this.utilbasename.removeAttr(eraser, eAttrnaturename, eAttrelementname)
+          this.onoff = true
+        }
       })
     }
     private penEvent() {
       // 画笔的样式属性容器
       let pen = this.utilbasename.typeof(this.pen)
-      let eraser = this.utilbasename.typeof(this.eraser)
-      let eraserAttr = this.eraserAttr
       this.utilbasename.addEvent(pen, 'click', () => {
         let penAnaturename = this.penAttr.naturename
         let penAelementname = this.penAttr.elementname
-        let eAttrnaturename = this.eraserAttr.naturename
-        let eAttrelementname = this.eraserAttr.elementname
         this.eraserEnabled = false
-        this.utilbasename.addAttr(pen, penAnaturename, penAelementname)
-        this.utilbasename.removeAttr(eraser, eAttrnaturename, eAttrelementname)
+        if ((this.onoff = true)) {
+          this.utilbasename.addAttr(pen, penAnaturename, penAelementname)
+          this.onoff = false
+        } else {
+          this.utilbasename.removeAttr(pen, penAnaturename, penAelementname)
+          this.onoff = true
+        }
       })
     }
     private clearEvent() {
@@ -271,9 +281,18 @@ export namespace Mainpoint {
     }
     public changeundo() {
       const undo = this.undo
+      const undoAnaturename = this.undoAttr.naturename
+      const undoAelementname = this.undoAttr.elementname
       this.utilbasename.addEvent(undo, 'click', () => {
         if (this.canvasHistory.length < 1) {
           this.component.vuinit('通知', '不能在进行撤销')
+        }
+        if (this.onoff) {
+          this.utilbasename.addAttr(undo, undoAnaturename, undoAelementname)
+          this.onoff = false
+        } else {
+          this.utilbasename.removeAttr(undo, undoAnaturename, undoAelementname)
+          this.onoff = true
         }
         this.context.putImageData(this.canvasHistory[this.canvasHistory.length - 1], 0, 0)
         this.canvasHistory.pop()
@@ -282,9 +301,18 @@ export namespace Mainpoint {
     }
     public changeredo() {
       const redo = this.redo
+      const redoAelementname = this.redoAttr.elementname
+      const redoAnaturename = this.redoAttr.naturename
       this.utilbasename.addEvent(redo, 'click', () => {
         this.context.putImageData(this.step, 0, 0)
-        this.canvasHistory.pop()
+        if (this.onoff) {
+          this.utilbasename.addAttr(redo, redoAnaturename, redoAelementname)
+          this.onoff = false
+        } else {
+          this.utilbasename.addAttr(redo, redoAnaturename, redoAelementname)
+          this.onoff = true
+        }
+        // 点击开关当前样式
       })
     }
   }
