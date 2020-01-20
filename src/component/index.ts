@@ -1,8 +1,8 @@
 import { utilbase } from '../baseMethod/index'
-// import { GBoardApi } from '../types/index'
+import { consleApi } from '../types/index'
 export namespace Component {
-  // 类装饰器可传参
-  export function addExtend(params: any) {
+  // addNotification 为通知组件（是类装饰器可传参）
+  export function addNotification(params: any) {
     params.prototype.utilbasename = null
     params.prototype.noticeWrap = null
     params.prototype.noticeBtn = null
@@ -50,23 +50,8 @@ export namespace Component {
         // div.remove() // 删除自身
         this.fadeOut(div)
       })
-      // this.utilbasename.addEvent(
-      //   div.getElementsByClassName('notification')[0],
-      //   'mouseenter',
-      //   () => {
-      //     clearInterval(timer) // 清除定时器
-      //   }
-      // )
-      // this.utilbasename.addEvent(
-      //   div.getElementsByClassName('notification')[0],
-      //   'mouseleave',
-      //   () => {
-      //     // 移出鼠标后删除自身
-      //     div.remove()
-      //   }
-      // )
     }
-    params.prototype.vuNotice = function(title: string, content: string) {
+    params.prototype.vuNotice = (title: string, content: string) => {
       let vunTitle: any = title
       let vunContent: any = content
       let tpl: any = `<div class="notification" style="position: absolute; top: 10px;z-index: 1000;">
@@ -85,7 +70,7 @@ export namespace Component {
             </div>`
       return tpl
     }
-    params.prototype.noticeStyle = function() {
+    params.prototype.noticeStyle = () => {
       let nstyle = `
             .notification {
             display: flex;
@@ -135,7 +120,7 @@ export namespace Component {
             `
       return nstyle
     }
-    params.prototype.fadeOut = function(elem: any) {
+    params.prototype.fadeOut = (elem: any) => {
       // 淡出功能
       if (elem.style.opacity !== 0) {
         let speed: any = undefined || 20
@@ -151,7 +136,30 @@ export namespace Component {
       }
     }
   }
-  @addExtend
+  export function addconsole(params: any) {
+    params.prototype.create = (parameter: consleApi) => {
+      const param: any = {
+        name: parameter.name,
+        linktext: parameter.linktext,
+        stylename: parameter.stylename,
+        stylelinkt: parameter.stylelink
+      }
+      console.info('' + param.name + param.linktext + '', param.stylename, param.stylelinkt)
+    }
+    params.prototype.content = function(options: consleApi) {
+      const param: any = {
+        name: options.name,
+        styletext: options.styletext
+      }
+      console.log('' + options.name + '', options.styletext)
+    }
+  }
+  export function addAlert(params: any) {
+    // 输出提示信息文本组件
+    params.prototype.newcreate = function() {}
+  }
+  @addconsole
+  @addNotification
   export class ViewUi {
     constructor() {
       return

@@ -592,11 +592,10 @@ var colorpick;
     colorpick.Cpicker = Cpicker;
 })(colorpick || (colorpick = {}));
 
-// import { GBoardApi } from '../types/index'
 var Component;
 (function (Component) {
-    // 类装饰器可传参
-    function addExtend(params) {
+    // addNotification 为通知组件（是类装饰器可传参）
+    function addNotification(params) {
         params.prototype.utilbasename = null;
         params.prototype.noticeWrap = null;
         params.prototype.noticeBtn = null;
@@ -644,21 +643,6 @@ var Component;
                 // div.remove() // 删除自身
                 _this.fadeOut(div);
             });
-            // this.utilbasename.addEvent(
-            //   div.getElementsByClassName('notification')[0],
-            //   'mouseenter',
-            //   () => {
-            //     clearInterval(timer) // 清除定时器
-            //   }
-            // )
-            // this.utilbasename.addEvent(
-            //   div.getElementsByClassName('notification')[0],
-            //   'mouseleave',
-            //   () => {
-            //     // 移出鼠标后删除自身
-            //     div.remove()
-            //   }
-            // )
         };
         params.prototype.vuNotice = function (title, content) {
             var vunTitle = title;
@@ -686,13 +670,39 @@ var Component;
             }
         };
     }
-    Component.addExtend = addExtend;
+    Component.addNotification = addNotification;
+    function addconsole(params) {
+        params.prototype.create = function (parameter) {
+            var param = {
+                name: parameter.name,
+                linktext: parameter.linktext,
+                stylename: parameter.stylename,
+                stylelinkt: parameter.stylelink
+            };
+            console.info("" + param.name + param.linktext + "", param.stylename, param.stylelinkt);
+        };
+        params.prototype.content = function (options) {
+            var param = {
+                name: options.name,
+                styletext: options.styletext
+            };
+            console.log("" + options.name + "", options.styletext);
+        };
+    }
+    Component.addconsole = addconsole;
+    function addAlert(params) {
+        // 输出提示信息文本组件
+        params.prototype.newcreate = function () {
+        };
+    }
+    Component.addAlert = addAlert;
     var ViewUi = /** @class */ (function () {
         function ViewUi() {
             return;
         }
         ViewUi = __decorate([
-            addExtend,
+            addconsole,
+            addNotification,
             __metadata("design:paramtypes", [])
         ], ViewUi);
         return ViewUi;
@@ -727,6 +737,7 @@ var Mainpoint;
             this.downloadType.downloadFormat = config.downloadType.downloadFormat;
             this.downloadType.PictureName = config.downloadType.PictureName;
             this.undo = this.utilbasename.typeof(config.undo);
+            this.redo = this.utilbasename.typeof(config.redo);
             this.undoAttr = config.undoAttr;
             this.undoAttr.naturename = config.undoAttr.naturename;
             this.undoAttr.elementname = config.undoAttr.elementname;
@@ -741,6 +752,7 @@ var Mainpoint;
             this.autoCanvasSize();
             this.downloadEvent(config);
             this.changeundo();
+            this.changeredo();
             // Shape.shapesquare(this.context)
         };
         MainMethods.prototype.eraserEvent = function () {
@@ -862,7 +874,6 @@ var Mainpoint;
             if (document.body.ontouchstart === undefined) {
                 this.utilbasename.addEvent(this.canvas, 'mousedown', function (a) {
                     _this.step = _this.context.getImageData(0, 0, _this.canvas.width, _this.canvas.height); //在这里储存绘图表面
-                    _this.canvassavedata(_this.step);
                     var x = a.clientX;
                     var y = a.clientY;
                     using = true;
@@ -897,6 +908,7 @@ var Mainpoint;
                 });
                 this.utilbasename.addEvent(this.canvas, 'mouseup', function () {
                     using = false;
+                    _this.canvassavedata(_this.step);
                 });
             }
             else {
@@ -941,17 +953,26 @@ var Mainpoint;
             }
         };
         MainMethods.prototype.canvassavedata = function (data) {
-            (this.canvasHistory.length === 10) && (this.canvasHistory.shift()); // 上限为储存10步，太多了怕挂掉
+            this.canvasHistory.length === 10 && this.canvasHistory.shift(); // 上限为储存10步，太多了怕挂掉
             this.canvasHistory.push(data);
         };
         MainMethods.prototype.changeundo = function () {
             var _this = this;
             var undo = this.undo;
-            this.utilbasename.addEvent(undo, "click", function () {
-                if (_this.canvasHistory.length < 1)
-                    return false;
+            this.utilbasename.addEvent(undo, 'click', function () {
+                if (_this.canvasHistory.length < 1) {
+                    _this.component.vuinit('通知', '不能在进行撤销');
+                }
                 _this.context.putImageData(_this.canvasHistory[_this.canvasHistory.length - 1], 0, 0);
                 _this.canvasHistory.pop();
+            });
+            // 以上为画板撤销功能
+        };
+        MainMethods.prototype.changeredo = function () {
+            var _this = this;
+            var redo = this.redo;
+            this.utilbasename.addEvent(redo, 'click', function () {
+                _this.context.putImageData(_this.step, 0, 0);
             });
         };
         return MainMethods;
@@ -972,3 +993,4 @@ var GBoard = /** @class */ (function (_super) {
  * (c) 2019 by wangqiaoqiao
  * Released under the MIT License.
  */
+
